@@ -1,0 +1,261 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Common">
+      <UniqueIdentifier>{31c46b87-3af4-4f13-8568-8afd8b542501}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\PrimitiveBatcher">
+      <UniqueIdentifier>{2d242c48-63d8-4e12-a069-d412a83c239e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Library">
+      <UniqueIdentifier>{bb726fd5-41fd-4ab8-8055-5827ed339b3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Project">
+      <UniqueIdentifier>{ec06e49b-028d-4ee7-9bc2-eec79e6c0cb2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Sequencer">
+      <UniqueIdentifier>{8e07f84e-747d-438a-9de2-9a875abb9db9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Entity">
+      <UniqueIdentifier>{161a37be-564c-4f08-9778-1dd8b8c5d173}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{6a8e62df-c717-4dd6-9ad0-ef88df85ecff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Library\Header Files">
+      <UniqueIdentifier>{1df382ea-b672-4ec4-959c-9d75f8972903}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Entity\Header Files">
+      <UniqueIdentifier>{c9a4a2f1-dbba-4fb5-a021-86d76622578d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Sequencer\Header Files">
+      <UniqueIdentifier>{9847c2ed-9811-424f-a3d7-c2de31dbe2d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Project\Header Files">
+      <UniqueIdentifier>{84b5a116-9964-447c-82cc-07f199697a18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\PrimitiveBatcher\Header Files">
+      <UniqueIdentifier>{2322b1b4-7049-4723-8fc7-b62107b1e118}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Header Files">
+      <UniqueIdentifier>{041b5734-4d84-4bc7-9627-f4a8b38478ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Library\Source Files">
+      <UniqueIdentifier>{bde745ad-bda3-4e8c-ad2b-d77f0b0c6e68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Entity\Source Files">
+      <UniqueIdentifier>{9c0b17af-7b55-4323-b714-f43ae67fce30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Sequencer\Source Files">
+      <UniqueIdentifier>{75c83c21-c769-47ac-af35-f6d17efbd286}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\Project\Source Files">
+      <UniqueIdentifier>{6b58be56-c7ed-4177-8aa8-945c35c96385}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common\PrimitiveBatcher\Source Files">
+      <UniqueIdentifier>{4c044b3d-ceea-4b81-900c-61ff6b8da8d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Platform\Source Files">
+      <UniqueIdentifier>{2fdc2aaf-dfd1-459b-9001-2e7653d157aa}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\Common\Entity\ss6player_entity.h">
+      <Filter>Common\Entity\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Common\Entity\ss6player_entity_effect.h">
+      <Filter>Common\Entity\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Common\Entity\ss6player_entity_effect_function_animation.h">
+      <Filter>Common\Entity\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Common\Entity\ss6player_entity_effect_function_cell.h">
+      <Filter>Common\Entity\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Common\Entity\ss6player_entity_effect_function_misc.h">
+      <Filter>Common\Entity\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Common\Entity\ss6player_entity_effect_function_parts.h">
+      <Filter>Common\Entity\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Common\Entity\ss6player_entity_function_animation.h">
+      <Filter>Common\Entity\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Common\Entity\ss6player_entity_function_cell.h">
+      <Filter>Common\Entity\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Common\Entity\ss6player_entity_function_misc.h">
+      <Filter>Common\Entity\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Common\Entity\ss6player_entity_function_parts.h">
+      <Filter>Common\Entity\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Common\Entity\ss6player_entity_function_track.h">
+      <Filter>Common\Entity\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Common\Entity\ss6player_entity_replicate.h">
+      <Filter>Common\Entity\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Common\Library\ss6player_control.h">
+      <Filter>Common\Library\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Common\Library\ss6player_control_effect.h">
+      <Filter>Common\Library\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Common\Library\ss6player_data.h">
+      <Filter>Common\Library\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Common\Library\ss6player_data_project.h">
+      <Filter>Common\Library\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Common\Library\ss6player_pack.h">
+      <Filter>Common\Library\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Common\Library\ss6player_utility.h">
+      <Filter>Common\Library\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Common\Library\ss6player_utility_random_mersennetwister.h">
+      <Filter>Common\Library\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Common\Library\ss6player_utility_random_xorshift32.h">
+      <Filter>Common\Library\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Common\PrimitiveBatcher\ss6player_primitive_batcher.h">
+      <Filter>Common\PrimitiveBatcher\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Common\Project\ss6player_project.h">
+      <Filter>Common\Project\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Common\Sequencer\ss6player_sequencer.h">
+      <Filter>Common\Sequencer\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Common\ssfb2_generated.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Platform\OpenGL\ss6player_buffer.h">
+      <Filter>Platform\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Platform\OpenGL\ss6player_file.h">
+      <Filter>Platform\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Platform\OpenGL\ss6player_gpu_resource_cache.h">
+      <Filter>Platform\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Platform\OpenGL\ss6player_memory.h">
+      <Filter>Platform\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Platform\OpenGL\ss6player_platform.h">
+      <Filter>Platform\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Platform\OpenGL\ss6player_renderer.h">
+      <Filter>Platform\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Platform\OpenGL\ss6player_shader.h">
+      <Filter>Platform\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Platform\OpenGL\ss6player_system.h">
+      <Filter>Platform\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Platform\OpenGL\ss6player_texture.h">
+      <Filter>Platform\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Platform\OpenGL\ss6player_types.h">
+      <Filter>Platform\Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\Common\Entity\ss6player_entity.cpp">
+      <Filter>Common\Entity\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\Entity\ss6player_entity_effect.cpp">
+      <Filter>Common\Entity\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\Entity\ss6player_entity_effect_function_animation.cpp">
+      <Filter>Common\Entity\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\Entity\ss6player_entity_effect_function_cell.cpp">
+      <Filter>Common\Entity\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\Entity\ss6player_entity_effect_function_misc.cpp">
+      <Filter>Common\Entity\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\Entity\ss6player_entity_effect_function_parts.cpp">
+      <Filter>Common\Entity\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\Entity\ss6player_entity_function_animation.cpp">
+      <Filter>Common\Entity\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\Entity\ss6player_entity_function_cell.cpp">
+      <Filter>Common\Entity\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\Entity\ss6player_entity_function_misc.cpp">
+      <Filter>Common\Entity\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\Entity\ss6player_entity_function_parts.cpp">
+      <Filter>Common\Entity\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\Entity\ss6player_entity_function_track.cpp">
+      <Filter>Common\Entity\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\Entity\ss6player_entity_replicate.cpp">
+      <Filter>Common\Entity\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\Library\ss6player_control.cpp">
+      <Filter>Common\Library\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\Library\ss6player_control_effect.cpp">
+      <Filter>Common\Library\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\Library\ss6player_data.cpp">
+      <Filter>Common\Library\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\Library\ss6player_data_project.cpp">
+      <Filter>Common\Library\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\Library\ss6player_pack.cpp">
+      <Filter>Common\Library\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\Library\ss6player_utility.cpp">
+      <Filter>Common\Library\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\Library\ss6player_utility_random_mersennetwister.cpp">
+      <Filter>Common\Library\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\Library\ss6player_utility_random_xorshift32.cpp">
+      <Filter>Common\Library\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\PrimitiveBatcher\ss6player_primitive_batcher.cpp">
+      <Filter>Common\PrimitiveBatcher\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\Project\ss6player_project.cpp">
+      <Filter>Common\Project\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Common\Sequencer\ss6player_sequencer.cpp">
+      <Filter>Common\Sequencer\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Platform\OpenGL\ss6player_buffer.cpp">
+      <Filter>Platform\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Platform\OpenGL\ss6player_file.cpp">
+      <Filter>Platform\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Platform\OpenGL\ss6player_memory.cpp">
+      <Filter>Platform\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Platform\OpenGL\ss6player_renderer.cpp">
+      <Filter>Platform\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Platform\OpenGL\ss6player_shader.cpp">
+      <Filter>Platform\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Platform\OpenGL\ss6player_system.cpp">
+      <Filter>Platform\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Platform\OpenGL\ss6player_texture.cpp">
+      <Filter>Platform\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Platform\OpenGL\ss6player_types.cpp">
+      <Filter>Platform\Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

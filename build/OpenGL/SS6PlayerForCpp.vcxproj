@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{58f6707e-a974-4f24-a797-35fd3df84bcd}</ProjectGuid>
+    <RootNamespace>SS6PlayerForCpp</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>SS6PlayerForCpp</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IntDir>$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IntDir>$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalOptions>/source-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\src\OSS;$(ProjectDir)..\..\src\Platform\OpenGL;$(ProjectDir)..\..\src\Platform\OpenGL\OSS\GLFW\include;$(ProjectDir)..\..\src\Platform\OpenGL\OSS\GLEW\include;$(ProjectDir)..\..\src\Common\Entity;$(ProjectDir)..\..\src\Common\Library;$(ProjectDir)..\..\src\Common\PrimitiveBatcher;$(ProjectDir)..\..\src\Common\Project;$(ProjectDir)..\..\src\Common\Sequencer;$(ProjectDir)..\..\src\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalOptions>/source-charset:utf-8 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\..\src\OSS;$(ProjectDir)..\..\src\Platform\OpenGL;$(ProjectDir)..\..\src\Platform\OpenGL\OSS\GLFW\include;$(ProjectDir)..\..\src\Platform\OpenGL\OSS\GLEW\include;$(ProjectDir)..\..\src\Common\Entity;$(ProjectDir)..\..\src\Common\Library;$(ProjectDir)..\..\src\Common\PrimitiveBatcher;$(ProjectDir)..\..\src\Common\Project;$(ProjectDir)..\..\src\Common\Sequencer;$(ProjectDir)..\..\src\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\Common\Entity\ss6player_entity.h" />
+    <ClInclude Include="..\..\src\Common\Entity\ss6player_entity_effect.h" />
+    <ClInclude Include="..\..\src\Common\Entity\ss6player_entity_effect_function_animation.h" />
+    <ClInclude Include="..\..\src\Common\Entity\ss6player_entity_effect_function_cell.h" />
+    <ClInclude Include="..\..\src\Common\Entity\ss6player_entity_effect_function_misc.h" />
+    <ClInclude Include="..\..\src\Common\Entity\ss6player_entity_effect_function_parts.h" />
+    <ClInclude Include="..\..\src\Common\Entity\ss6player_entity_function_animation.h" />
+    <ClInclude Include="..\..\src\Common\Entity\ss6player_entity_function_cell.h" />
+    <ClInclude Include="..\..\src\Common\Entity\ss6player_entity_function_misc.h" />
+    <ClInclude Include="..\..\src\Common\Entity\ss6player_entity_function_parts.h" />
+    <ClInclude Include="..\..\src\Common\Entity\ss6player_entity_function_track.h" />
+    <ClInclude Include="..\..\src\Common\Entity\ss6player_entity_replicate.h" />
+    <ClInclude Include="..\..\src\Common\Library\ss6player_control.h" />
+    <ClInclude Include="..\..\src\Common\Library\ss6player_control_effect.h" />
+    <ClInclude Include="..\..\src\Common\Library\ss6player_data.h" />
+    <ClInclude Include="..\..\src\Common\Library\ss6player_data_project.h" />
+    <ClInclude Include="..\..\src\Common\Library\ss6player_pack.h" />
+    <ClInclude Include="..\..\src\Common\Library\ss6player_utility.h" />
+    <ClInclude Include="..\..\src\Common\Library\ss6player_utility_random_mersennetwister.h" />
+    <ClInclude Include="..\..\src\Common\Library\ss6player_utility_random_xorshift32.h" />
+    <ClInclude Include="..\..\src\Common\PrimitiveBatcher\ss6player_primitive_batcher.h" />
+    <ClInclude Include="..\..\src\Common\Project\ss6player_project.h" />
+    <ClInclude Include="..\..\src\Common\Sequencer\ss6player_sequencer.h" />
+    <ClInclude Include="..\..\src\Common\ssfb2_generated.h" />
+    <ClInclude Include="..\..\src\Platform\OpenGL\ss6player_buffer.h" />
+    <ClInclude Include="..\..\src\Platform\OpenGL\ss6player_file.h" />
+    <ClInclude Include="..\..\src\Platform\OpenGL\ss6player_gpu_resource_cache.h" />
+    <ClInclude Include="..\..\src\Platform\OpenGL\ss6player_memory.h" />
+    <ClInclude Include="..\..\src\Platform\OpenGL\ss6player_platform.h" />
+    <ClInclude Include="..\..\src\Platform\OpenGL\ss6player_renderer.h" />
+    <ClInclude Include="..\..\src\Platform\OpenGL\ss6player_shader.h" />
+    <ClInclude Include="..\..\src\Platform\OpenGL\ss6player_system.h" />
+    <ClInclude Include="..\..\src\Platform\OpenGL\ss6player_texture.h" />
+    <ClInclude Include="..\..\src\Platform\OpenGL\ss6player_types.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\Common\Entity\ss6player_entity.cpp" />
+    <ClCompile Include="..\..\src\Common\Entity\ss6player_entity_effect.cpp" />
+    <ClCompile Include="..\..\src\Common\Entity\ss6player_entity_effect_function_animation.cpp" />
+    <ClCompile Include="..\..\src\Common\Entity\ss6player_entity_effect_function_cell.cpp" />
+    <ClCompile Include="..\..\src\Common\Entity\ss6player_entity_effect_function_misc.cpp" />
+    <ClCompile Include="..\..\src\Common\Entity\ss6player_entity_effect_function_parts.cpp" />
+    <ClCompile Include="..\..\src\Common\Entity\ss6player_entity_function_animation.cpp" />
+    <ClCompile Include="..\..\src\Common\Entity\ss6player_entity_function_cell.cpp" />
+    <ClCompile Include="..\..\src\Common\Entity\ss6player_entity_function_misc.cpp" />
+    <ClCompile Include="..\..\src\Common\Entity\ss6player_entity_function_parts.cpp" />
+    <ClCompile Include="..\..\src\Common\Entity\ss6player_entity_function_track.cpp" />
+    <ClCompile Include="..\..\src\Common\Entity\ss6player_entity_replicate.cpp" />
+    <ClCompile Include="..\..\src\Common\Library\ss6player_control.cpp" />
+    <ClCompile Include="..\..\src\Common\Library\ss6player_control_effect.cpp" />
+    <ClCompile Include="..\..\src\Common\Library\ss6player_data.cpp" />
+    <ClCompile Include="..\..\src\Common\Library\ss6player_data_project.cpp" />
+    <ClCompile Include="..\..\src\Common\Library\ss6player_pack.cpp" />
+    <ClCompile Include="..\..\src\Common\Library\ss6player_utility.cpp" />
+    <ClCompile Include="..\..\src\Common\Library\ss6player_utility_random_mersennetwister.cpp" />
+    <ClCompile Include="..\..\src\Common\Library\ss6player_utility_random_xorshift32.cpp" />
+    <ClCompile Include="..\..\src\Common\PrimitiveBatcher\ss6player_primitive_batcher.cpp" />
+    <ClCompile Include="..\..\src\Common\Project\ss6player_project.cpp" />
+    <ClCompile Include="..\..\src\Common\Sequencer\ss6player_sequencer.cpp" />
+    <ClCompile Include="..\..\src\Platform\OpenGL\ss6player_buffer.cpp" />
+    <ClCompile Include="..\..\src\Platform\OpenGL\ss6player_file.cpp" />
+    <ClCompile Include="..\..\src\Platform\OpenGL\ss6player_memory.cpp" />
+    <ClCompile Include="..\..\src\Platform\OpenGL\ss6player_renderer.cpp" />
+    <ClCompile Include="..\..\src\Platform\OpenGL\ss6player_shader.cpp" />
+    <ClCompile Include="..\..\src\Platform\OpenGL\ss6player_system.cpp" />
+    <ClCompile Include="..\..\src\Platform\OpenGL\ss6player_texture.cpp" />
+    <ClCompile Include="..\..\src\Platform\OpenGL\ss6player_types.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

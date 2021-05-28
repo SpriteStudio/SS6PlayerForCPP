@@ -1,0 +1,15 @@
+name: SS6PlayerForCpp for macOS
+
+on: [push]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        platform: [windows-latest]
+    runs-on: ${{ matrix.platform }}
+    steps:
+    - uses: actions/checkout@v1
+    - name: release build
+      run: .\scripts\release_win.ps1 Release
+

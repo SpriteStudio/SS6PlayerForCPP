@@ -1,0 +1,52 @@
+﻿{
+  "configurations": [
+    {
+      "name": "OpenGL_Win32_Debug",
+      "inheritEnvironments": [ "linux_x86" ],
+      "generator": "Ninja",
+      "configurationType": "Debug",
+      "buildRoot": "${projectDir}\\out\\build\\${name}",
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "cmakeCommandArgs": "-DTARGET=win32 -DMSVC=true -DCMAKE_TOOLCHAIN_FILE=./build/OpenGL/ToolChain.cmake -DSS6PCPP_NAME_COMPILEENV=\"VS2019\" -DSS6PCPP_VISUALSTUDIO=\"D:/Application/Microsoft/Microsoft Visual Studio/2019/Community/VC\" -DSS6PCPP_VISUALSTUDIO_VERSION=\"14.28.29333\" -DSS6PCPP_WINDOWSKITS_PATH=\"C:/Program Files (x86)/Windows Kits\" -DSS6PCPP_WINDOWSKITS_VERSION_MAJOR=\"10\" -DSS6PCPP_WINDOWSKITS_VERSION_MINOR=\"0.19041.0\" -DSS6PCPP_WINDOWSKITS_FRAMEWORK=\"4.8\"",
+      "buildCommandArgs": "-v",
+      "ctestCommandArgs": "",
+      "variables": []
+    },
+    {
+      "name": "OpenGL_Win64_Debug",
+      "generator": "Ninja",
+      "inheritEnvironments": [ "linux_x86" ],
+      "configurationType": "Debug",
+      "buildRoot": "${projectDir}\\out\\build\\${name}",
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "cmakeCommandArgs": "-DTARGET=win64 -DMSVC=true -DCMAKE_TOOLCHAIN_FILE=./build/OpenGL/ToolChain.cmake -DSS6PCPP_NAME_COMPILEENV=\"VS2019\" -DSS6PCPP_VISUALSTUDIO=\"D:/Application/Microsoft/Microsoft Visual Studio/2019/Community/VC\" -DSS6PCPP_VISUALSTUDIO_VERSION=\"14.28.29333\" -DSS6PCPP_WINDOWSKITS_PATH=\"C:/Program Files (x86)/Windows Kits\" -DSS6PCPP_WINDOWSKITS_VERSION_MAJOR=\"10\" -DSS6PCPP_WINDOWSKITS_VERSION_MINOR=\"0.19041.0\" -DSS6PCPP_WINDOWSKITS_FRAMEWORK=\"4.8\"",
+      "buildCommandArgs": "-v",
+      "ctestCommandArgs": "",
+      "variables": []
+    },
+    {
+      "name": "OpenGL_Win32_Release",
+      "generator": "Ninja",
+      "inheritEnvironments": [ "linux_x64" ],
+      "configurationType": "Release",
+      "buildRoot": "${projectDir}\\out\\build\\${name}",
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "cmakeCommandArgs": "-DTARGET=win32 -DMSVC=true -DCMAKE_TOOLCHAIN_FILE=./build/OpenGL/ToolChain.cmake -DSS6PCPP_NAME_COMPILEENV=\"VS2019\" -DSS6PCPP_VISUALSTUDIO=\"D:/Application/Microsoft/Microsoft Visual Studio/2019/Community/VC\" -DSS6PCPP_VISUALSTUDIO_VERSION=\"14.28.29333\" -DSS6PCPP_WINDOWSKITS_PATH=\"C:/Program Files (x86)/Windows Kits\" -DSS6PCPP_WINDOWSKITS_VERSION_MAJOR=\"10\" -DSS6PCPP_WINDOWSKITS_VERSION_MINOR=\"0.19041.0\" -DSS6PCPP_WINDOWSKITS_FRAMEWORK=\"4.8\"",
+      "buildCommandArgs": "-v",
+      "ctestCommandArgs": "",
+      "variables": []
+    },
+    {
+      "name": "OpenGL_Win64_Release",
+      "generator": "Ninja",
+      "inheritEnvironments": [ "linux_x64" ],
+      "configurationType": "Release",
+      "buildRoot": "${projectDir}\\out\\build\\${name}",
+      "installRoot": "${projectDir}\\out\\install\\${name}",
+      "cmakeCommandArgs": "-DTARGET=win64 -DMSVC=true -DCMAKE_TOOLCHAIN_FILE=./build/OpenGL/ToolChain.cmake -DSS6PCPP_NAME_COMPILEENV=\"VS2019\" -DSS6PCPP_VISUALSTUDIO=\"D:/Application/Microsoft/Microsoft Visual Studio/2019/Community/VC\" -DSS6PCPP_VISUALSTUDIO_VERSION=\"14.28.29333\" -DSS6PCPP_WINDOWSKITS_PATH=\"C:/Program Files (x86)/Windows Kits\" -DSS6PCPP_WINDOWSKITS_VERSION_MAJOR=\"10\" -DSS6PCPP_WINDOWSKITS_VERSION_MINOR=\"0.19041.0\" -DSS6PCPP_WINDOWSKITS_FRAMEWORK=\"4.8\"",
+      "buildCommandArgs": "-v",
+      "ctestCommandArgs": "",
+      "variables": []
+    }
+  ]
+}
