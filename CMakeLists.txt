@@ -67,3 +67,6 @@ endif()
 add_subdirectory("src")                 # Static-Library: libSS6PlayerForCpp
 add_subdirectory("src/Application")     # Sample: Application-Main
 
+# Start-Up Project
+set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT "src/Application")
+
