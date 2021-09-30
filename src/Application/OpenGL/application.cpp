@@ -20,16 +20,31 @@
 /* コンパイルオプション: シーケンサ再生 */
 /* MEMO: 定義すると、「シーケンサ（シーケンスデータ）」の再生サンプルになります。                */
 /*       定義しないと、「エンティティ（1アニメーションオブジェクト）」の再生サンプルになります。 */
-#define _COMPILEOPTION_TEST_SEQUENCER_
+/ #define _COMPILEOPTION_TEST_SEQUENCER_
 
 /* コンパイルオプション: 複製描画の追加 */
-/* MEMO: 定義すると、再生しているオブジェクトを(100, 100, 0)の位置に複製描画します。 */
-#define _COMPILEOPTION_TEST_REPLICATE_
+/* MEMO: 定義すると、再生しているオブジェクトを画面いっぱいに複製描画します。 */
+// #define _COMPILEOPTION_TEST_REPLICATE_
 
 /* コンパイルオプション: テクスチャを外部定義 */
 /* MEMO: 少し変わった運用時のための例です。                                                      */
 /*       ※例えば、SS6のデータと他のモデルや描画物がテクスチャを共用しているような場合……など。 */
 // #define _COMPILEOPTION_TEXTURE_EXTERNALENTITY_
+
+
+/* 再生アニメーション名等 */
+#define NAME_FILE_SSFB2	u8"Doll.ssfb2"
+
+#if defined(_COMPILEOPTION_TEST_SEQUENCER_)
+/* MEMO: シーケンス再生の場合は、ssqeのファイル名と、ssqeの中に定義されているシーケンス名が必要になります。 */
+#define NAME_SSQE_SEQUENCEPACK	u8"Sequence"
+#define NAME_SEQUENCE	u8"Seq_01"
+#else
+/* MEMO: 単独アニメーション再生の場合は、ssaeのファイル名と、ssaeの中に定義されているアニメーション名が必要になります。 */
+#define NAME_SSAE_ANIMATIONPACK	u8"Action01_Body"
+#define NAME_ANIMATION	u8"PutOutL"
+#endif
+
 
 /* -------------------------------------------------------------------------- */
 /*                          [File-Scope internal] Defines (Value-Type Macros) */
@@ -530,7 +545,7 @@ static void CallBackFunctionSignal(	SpriteStudio6::Entity& entity,
 	for(int i=0; i<countCommand; i++)	{
 		signal.CommandGet(&command, i);
 
-		const char* id = command.IDGet();
+		int id = command.IDGet();
 		int countParameter = command.CountGetParameter();
 		const char* note = command.NoteGet();
 
@@ -538,7 +553,6 @@ static void CallBackFunctionSignal(	SpriteStudio6::Entity& entity,
 			command.ParameterGet(&parameterSignal, j);
 
 			SpriteStudio6::Library::Data::Animation::Attribute::Signal::Command::Parameter::KindType type = parameterSignal.TypeGet();
-			const char* name = parameterSignal.NameGet();
 		}
 	}
 }
@@ -555,47 +569,24 @@ static void CallBackFunctionSignal(	SpriteStudio6::Entity& entity,
  */
 bool ApplicationBootUp(void)
 {
-	SpriteStudio6::FPU::Matrix4x4 matrix01(	0, 1, 2, 3,
-											4, 5, 6, 7,
-											8, 9, 10, 11,
-											12, 13, 14, 15
-										);
-
-	SpriteStudio6::FPU::Matrix4x4 matrix02(	100, 101, 102, 103,
-											104, 105, 106, 107,
-											108, 109, 110, 111,
-											112, 113, 114, 115
-										);
-	SpriteStudio6::FPU::Matrix4x4 matrix03(	3, 1, 1, 2,
-											5, 1, 3, 4,
-											2, 0, 1, 0,
-											1, 3, 2, 1
-										);
-
-	SpriteStudio6::FPU::Matrix4x4 matrixResult;
-	SpriteStudio6::MatrixMul(&matrixResult, matrix01, matrix02);
-	SpriteStudio6::MatrixInverse(&matrixResult, matrix03);
-	SpriteStudio6::MatrixTranspose(&matrixResult, matrix03);
-
 	/* データのロード・エンティティの起動・対応テクスチャのロード */
 #if defined(_COMPILEOPTION_TEST_SEQUENCER_)
-	HandlerSS6.DataLoadSSFB2(u8"Doll.ssfb2");
+	HandlerSS6.DataLoadSSFB2(NAME_FILE_SSFB2);
 #else
-	HandlerSS6.DataLoadSSFB2(u8"Doll.ssfb2");
+	HandlerSS6.DataLoadSSFB2(NAME_FILE_SSFB2);
 #endif	/* defined(_COMPILEOPTION_TEST_SEQUENCER_) */
 
 #if defined(_COMPILEOPTION_TEST_SEQUENCER_)
 	/* アニメーションのモデルをシーケンスに割当 */
-	HandlerSS6.PackSetSequence(u8"Sequence");	/* シーケンサにシーケンスパックを割当 */
+	HandlerSS6.PackSetSequence(NAME_SSQE_SEQUENCEPACK);	/* シーケンサにシーケンスパックを割当 */
 
 	/* シーケンスの再生開始 */
 	/* MEMO: シーケンスパック中の指定番号のシーケンスを再生します。 */
-	int indexSequence = HandlerSS6.Sequencer.IndexGetSequence(u8"Seq_01");
+	int indexSequence = HandlerSS6.Sequencer.IndexGetSequence(NAME_SEQUENCE);
 	HandlerSS6.Sequencer.Play(indexSequence, 1.0f);
 #else
 	/* アニメーションのモデルをエンティティに割当 */
-	HandlerSS6.PackSetAnimation(u8"Action01_Body");
-
+	HandlerSS6.PackSetAnimation(NAME_SSAE_ANIMATIONPACK);
 #if 0	/* MEMO: 再生終了などのコールバックを受け取る場合は、下記の方法で関数を定義します（無論、直接EntityやSequencerに設定しても構いません）。 */
 	/* コールバック関数群設定 */
 	HandlerSS6.Entity.CallBackUserData.Set(CallBackFunctionUserData, nullptr);
@@ -604,7 +595,7 @@ bool ApplicationBootUp(void)
 
 	/* アニメーションの再生開始 */
 	/* MEMO: アニメーションパック中の指定番号のアニメーションを再生します。 */
-	int indexAnimation = HandlerSS6.Entity.IndexGetAnimation(u8"PutOutL");
+	int indexAnimation = HandlerSS6.Entity.IndexGetAnimation(NAME_ANIMATION);
 
 	HandlerSS6.Entity.AnimationPlay(-1, indexAnimation);
 #endif	/* defined(_COMPILEOPTION_TEST_SEQUENCER_) */

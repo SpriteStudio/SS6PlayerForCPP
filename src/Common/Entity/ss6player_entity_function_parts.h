@@ -46,6 +46,9 @@ public:
 	*/
 	int CountGetParts(void)
 	{
+		if(nullptr == DataAnimation)	{
+			return(-1);
+		}
 		if(false == DataAnimation->IsValid())	{
 			return(-1);
 		}
@@ -68,6 +71,10 @@ public:
 	*/
 	Library::Data::Parts::Animation::KindFeature FeatureGetParts(int idParts)
 	{	/* MEMO: 良く使うので関数化 */
+		if(nullptr == DataAnimation)	{
+			return((Library::Data::Parts::Animation::KindFeature)(-1));
+		}
+
 		Library::Data::Parts::Animation dataPartsAnimation;
 		DataAnimation->TableParts(&dataPartsAnimation, idParts);
 
@@ -94,6 +101,10 @@ public:
 	*/
 	int IDGetParts(const char* name, size_t length=0)
 	{
+		if(nullptr == DataAnimation)	{
+			return(-1);
+		}
+
 		int count = CountGetParts();
 		for(int i=0; i<count; i++)	{
 			if(true == Library::Utility::Text::Compare(name, DataAnimation->NameGetParts(i), length))	{
@@ -119,6 +130,10 @@ public:
 	*/
 	const char* NameGetParts(int idParts)
 	{
+		if(nullptr == DataAnimation)	{
+			return(nullptr);
+		}
+
 		return(DataAnimation->NameGetParts(idParts));
 	}
 
