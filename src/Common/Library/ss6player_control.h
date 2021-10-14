@@ -27,6 +27,14 @@ class Project;
 }	/* SpriteStudio6 */
 
 namespace SpriteStudio6	{
+/* -------------------------------------------------------------------------- */
+/*                                                                  Variables */
+/* -------------------------------------------------------------------------- */
+/* SS6Player for CPPのシグネチャ関係 */
+extern const char* SignatureNamePlayer;
+extern const char* SignatureVersionPlayer;
+extern const char* SignatureAuthorPlayer;
+
 namespace Library	{
 namespace Control	{
 namespace Animation	{

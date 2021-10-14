@@ -625,11 +625,11 @@ TypeDrawCommandList Renderer::SectionTest::MakeCommand(TypeDrawCommandList comma
 	const ValuesStencilTest* dataStencil = &tableStencil[TypeDraw][index];
 	if(false == dataStencil->Enable)	{	/* ステンシルテストを行わない */
 		glDisable(GL_STENCIL_TEST);
-		glStencilFunc(GL_ALWAYS, (GLint)0xff, (GLuint)0xff);
+		glStencilFunc(GL_ALWAYS, (GLint)0x00, (GLuint)0xff);
 		glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
 	} else {	/* ステンシルテストを行う */
 		glEnable(GL_STENCIL_TEST);
-		glStencilFunc(dataStencil->Function, (GLint)0xff, (GLuint)0xff);
+		glStencilFunc(dataStencil->Function, (GLint)0x00, (GLuint)0xff);
 		glStencilOp(dataStencil->Operation, GL_KEEP, GL_KEEP);
 	}
 

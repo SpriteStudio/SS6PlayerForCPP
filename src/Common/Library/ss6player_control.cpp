@@ -13,7 +13,17 @@
 #include "../Entity/ss6player_entity_effect.h"
 #include "../Project/ss6player_project.h"
 
+/* アニメーションデータ中にボーンの列記が存在しない場合に処理パッチを充てる設定 */
+#define COMPILEOPTION_PATCH_BONELIST_NOT_EXIST
+
 namespace SpriteStudio6	{
+/* -------------------------------------------------------------------------- */
+/*                                                                  Variables */
+/* -------------------------------------------------------------------------- */
+const char* SignatureNamePlayer = "SS6Player for CPP";
+const char* SignatureVersionPlayer = "1.0.5";
+const char* SignatureAuthorPlayer = "Web Technology Corp.";
+
 namespace Library	{
 namespace Control	{
 /* -------------------------------------------------------------------------- */
@@ -3316,7 +3326,7 @@ size_t Draw::SizeGetWorkArea(Entity& entity, int idParts, int countVertex, bool 
 	if((true == flagMesh) || (Library::Data::Parts::Animation::KindFeature::MASK == entity.FeatureGetParts(idParts)))	{
 		/* MEMO: マスクパーツは2回描画するので、変形済みの頂点座標をキャッシュするためにワークを確保します。 */
 		/* MEMO: メッシュパーツは頂点数が固定ではないため、コンパイル時バインディングできないため（ローカル変数で */
-		/*       確保できない関係で）、変形済みの頂点座標の計s南尾ためにワークを確保します。                      */
+		/*       確保できない関係で）、変形済みの頂点座標の計算のためにワークを確保します。                       */
 		/* CoordinateTransformedDraw */	sizeWorkArea += Memory::Alignment(sizeof(CPU::Vector4) * countVertex);
 	} else {
 		/* MEMO: メッシュ・マスク以外の描画パーツは、変形済みの頂点座標はキャッシュしません。 */
@@ -4429,17 +4439,13 @@ bool Draw::DrawNormal(	Entity& entity,
 	}
 
 	/* ローカルスケール係数を作成 */
-	/* MEMO: 平面化フラグはローカルスケールのZ扱いで処理しています。                                      */
-	/*       もっと複雑な計算に変わる（ローカル回転とかローカル座標シフトなどが追加されたような）場合は、 */
-	/*       ローカル行列に混ぜて計算するのが良いのですが、現在は単純なスケール計算なので計算量からベクト */
-	/*       ル乗算で行っています。                                                                       */
-	/* MEMO: SS6Player for Unityの場合は、平面化は行列のZ軸部分を全部0.0に上書きしてやっています。 */
 	FPU::Vector3 scaleVector3(	controlParts.ScaleLocal.Value.GetX() * entity.RateScaleLocalForce.GetX(),
 								controlParts.ScaleLocal.Value.GetY() * entity.RateScaleLocalForce.GetY(),
 								1.0f
 							);
+	float scaleZPlanarization = 1.0f;
 	if(true == flagPlanarization)	{	/* Z成分をつぶす */
-		scaleVector3.SetZ(0.0f);
+		scaleZPlanarization = 0.0f;
 	}
 
 	/* 頂点データを作成 */
@@ -4470,28 +4476,28 @@ bool Draw::DrawNormal(	Entity& entity,
 
 		VectorTransform(&coordinate, CoordinateDraw[Library::KindVertex::LU], matrixTransform);
 		VectorAdd(&coordinate, coordinate, coordinateAdjust);
-		coordinateOut->Set(coordinate.GetX(), coordinate.GetY(), coordinate.GetZ());
+		coordinateOut->Set(coordinate.GetX(), coordinate.GetY(), coordinate.GetZ() * scaleZPlanarization);
 		coordinateOut++;
 
 		VectorTransform(&coordinate, CoordinateDraw[Library::KindVertex::RU], matrixTransform);
 		VectorAdd(&coordinate, coordinate, coordinateAdjust);
-		coordinateOut->Set(coordinate.GetX(), coordinate.GetY(), coordinate.GetZ());
+		coordinateOut->Set(coordinate.GetX(), coordinate.GetY(), coordinate.GetZ() * scaleZPlanarization);
 		coordinateOut++;
 
 		VectorTransform(&coordinate, CoordinateDraw[Library::KindVertex::RD], matrixTransform);
 		VectorAdd(&coordinate, coordinate, coordinateAdjust);
-		coordinateOut->Set(coordinate.GetX(), coordinate.GetY(), coordinate.GetZ());
+		coordinateOut->Set(coordinate.GetX(), coordinate.GetY(), coordinate.GetZ() * 0.0f);
 		coordinateOut++;
 
 		VectorTransform(&coordinate, CoordinateDraw[Library::KindVertex::LD], matrixTransform);
 		VectorAdd(&coordinate, coordinate, coordinateAdjust);
-		coordinateOut->Set(coordinate.GetX(), coordinate.GetY(), coordinate.GetZ());
+		coordinateOut->Set(coordinate.GetX(), coordinate.GetY(), coordinate.GetZ() * scaleZPlanarization);
 		coordinateOut++;
 
 		if(true == flagTriangle4)	{	/* 中心点がある */
 			VectorTransform(&coordinate, CoordinateDraw[Library::KindVertex::C], matrixTransform);
 			VectorAdd(&coordinate, coordinate, coordinateAdjust);
-			coordinateOut->Set(coordinate.GetX(), coordinate.GetY(), coordinate.GetZ());
+			coordinateOut->Set(coordinate.GetX(), coordinate.GetY(), coordinate.GetZ() * scaleZPlanarization);
 			coordinateOut++;
 		}
 	}
@@ -4895,14 +4901,10 @@ bool Draw::DrawMesh(	Entity& entity,
 					);
 	ArgumentFs02Draw.SetZ(0.0f);	/* プリマルチプライドアルファ */
 
-	/* ローカルスケール係数を作成 */
-	/* MEMO: メッシュパーツには「ローカルスケール」は効果しません（SS6の仕様）。 */
-	/*       そのため、本係数ベクトルは（現状）平面化のためだけに存在しています  */
-	/* MEMO: SS6Player for Unityの場合は、平面化は行列のZ軸部分を全部0.0に上書きしてやっています。 */
-	/*       計算量を減らさなくてはならなくなったら、その手に出るのが良いかもしれません。          */
-	FPU::Vector4 scaleVector4(FPU::Vector4::One);
+	/* 平面化係数を作成 */
+	float scaleZPlanarization = 1.0f;
 	if(true == flagPlanarization)	{	/* Z成分をつぶす */
-		scaleVector4.SetZ(0.0f);
+		scaleZPlanarization = 0.0f;
 	}
 
 	/* 頂点データを作成 */
@@ -4921,7 +4923,20 @@ bool Draw::DrawMesh(	Entity& entity,
 		CPU::Vector3* coordinateTransformed = CoordinateTransformedDraw;
 		CPU::Vector3* coordinateOut = coordinateTransformed;
 
+#if defined(COMPILEOPTION_PATCH_BONELIST_NOT_EXIST)
+		int countBoneList = 0;
+		{
+			Library::Data::Parts::Animation::Catalog catalogParts;
+			entity.DataAnimation->CatalogParts(&catalogParts);
+			countBoneList = catalogParts.CountTableIDPartsBone();
+		}
+
+		if(	(0 >= countTableBindMesh)
+			|| (0 >= countBoneList)
+		)	{	/* スケルタル（ボーン）アニメーションをしない（メッシュバインドがない） or ボーンが存在していない */
+#else
 		if(0 >= countTableBindMesh)	{	/* スケルタル（ボーン）アニメーションをしない（メッシュバインドがない） */
+#endif
 			if(true == flagUseDeform)	{	/* デフォーム機能を使っている */
 				/* Transform including "Deform" */
 				/* MEMO: この場合は「DeformDraw」はデフォームを加味した値です。 */
@@ -4937,20 +4952,20 @@ bool Draw::DrawMesh(	Entity& entity,
 
 				for(int i=0; i<CountVertex; i++)	{
 					VectorTransform(&coordinate, DeformDraw[i], matrixTransform);
-					VectorMul(&coordinateScaled, coordinate, scaleVector4);	/* ローカルスケールの適用 */
+					VectorMul(&coordinateScaled, coordinate, FPU::Vector4::One);
 					VectorAdd(&coordinateScaled, coordinateScaled, coordinateAdjust);
 					coordinateScaled.SetW(1.0f);	/* 念のため */
-					coordinateOut->Set(coordinateScaled.GetX(), coordinateScaled.GetY(), coordinateScaled.GetZ());
+					coordinateOut->Set(coordinateScaled.GetX(), coordinateScaled.GetY(), coordinateScaled.GetZ() * scaleZPlanarization);
 					coordinateOut++;
 				}
 			} else {	/* デフォームを使用していない（何もアニメーションしないメッシュ） */
 				/* MEMO: この場合は「DeformDraw」は使用していません。 */
 				for(int i=0; i<CountVertex; i++)	{
 					VectorTransform(&coordinate, CoordinateDraw[i], matrixTransform);
-					VectorMul(&coordinateScaled, coordinate, scaleVector4);	/* ローカルスケールの適用 */
+					VectorMul(&coordinateScaled, coordinate, FPU::Vector4::One);
 					VectorAdd(&coordinateScaled, coordinateScaled, coordinateAdjust);
 					coordinateScaled.SetW(1.0f);	/* 念のため */
-					coordinateOut->Set(coordinateScaled.GetX(), coordinateScaled.GetY(), coordinateScaled.GetZ());
+					coordinateOut->Set(coordinateScaled.GetX(), coordinateScaled.GetY(), coordinateScaled.GetZ() * scaleZPlanarization);
 					coordinateOut++;
 				}
 			}
@@ -4966,40 +4981,47 @@ bool Draw::DrawMesh(	Entity& entity,
 			dataBindMesh.TableVertex(&dataVertex);
 			Library::Data::Parts::Animation::BindMesh::Vertex::Bone dataBone;
 
-			/* MEMO: バインドされていない頂点があることに注意（なので、countVertexではなくバインドされた頂点分で行うこと）。 */
-			int countBone;
-			int idPartsBone;
-			Float32 weight;
-			FPU::Vector4 coordinateOffset;
-			FPU::Vector4* coordinateDraw;
-			const FPU::Matrix4x4* matrixBone;
-			for(int i=0; i<countTableBindMesh; i++)	{
-				/* MEMO: coordinateDrawの同次要素（w）は加算時は無視しています。 */
-				coordinateDraw = &CoordinateDraw[i];
-				coordinateDraw->Set(FPU::Vector4::Zero);	/* クリア（累積計算するため） */
+#if defined(COMPILEOPTION_PATCH_BONELIST_NOT_EXIST)
+			if(0 < countBoneList)	{
+#else
+#endif
+				/* MEMO: バインドされていない頂点があることに注意（なので、countVertexではなくバインドされた頂点分で行うこと）。 */
+				int countBone;
+				int idPartsBone;
+				Float32 weight;
+				FPU::Vector4 coordinateOffset;
+				FPU::Vector4* coordinateDraw;
+				const FPU::Matrix4x4* matrixBone;
+				for(int i=0; i<countTableBindMesh; i++)	{
+					/* MEMO: coordinateDrawの同次要素（w）は加算時は無視しています。 */
+					coordinateDraw = &CoordinateDraw[i];
+					coordinateDraw->Set(FPU::Vector4::Zero);	/* クリア（累積計算するため） */
 
-				countBone = dataVertex.CountTableBone(i);
-				dataVertex.TableBone(&dataBone, i);
-				for(int j=0; j<countBone; j++)	{
-					idPartsBone = dataBone.Index(j);
-					idPartsBone = (Sint16)(tablePartsBone[idPartsBone]);
-					if(0 <= idPartsBone)	{	/* ボーンIDが有効 */
-						/* MEMO: 関連するボーンの影響をweightの比率で足しこんでいます。 */
-						/* MEMO: coordinateDrawは同次（w）は無視して計算しています。 */
-						/* MEMO: この場合でのcoordinateScaledは単なる値を取得するためのテンポラリです。 */
-						matrixBone = &entity.TableControlParts[idPartsBone].MatrixTransform;
+					countBone = dataVertex.CountTableBone(i);
+					dataVertex.TableBone(&dataBone, i);
+					for(int j=0; j<countBone; j++)	{
+						idPartsBone = dataBone.Index(j);
+						idPartsBone = (Sint16)(tablePartsBone[idPartsBone]);
+						if(0 <= idPartsBone)	{	/* ボーンIDが有効 */
+							/* MEMO: 関連するボーンの影響をweightの比率で足しこんでいます。 */
+							/* MEMO: coordinateDrawは同次（w）は無視して計算しています。 */
+							/* MEMO: この場合でのcoordinateScaledは単なる値を取得するためのテンポラリです。 */
+							matrixBone = &entity.TableControlParts[idPartsBone].MatrixTransform;
 
-						dataBone.CoordinateOffset(&coordinateScaled, j);
-						VectorTransform(&coordinate, coordinateScaled, *matrixBone);
+							dataBone.CoordinateOffset(&coordinateScaled, j);
+							VectorTransform(&coordinate, coordinateScaled, *matrixBone);
 
-						weight = dataBone.Weight(j);
-						VectorMul(&coordinate, coordinate, weight);
-						VectorAdd(coordinateDraw, *coordinateDraw, coordinate);
+							weight = dataBone.Weight(j);
+							VectorMul(&coordinate, coordinate, weight);
+							VectorAdd(coordinateDraw, *coordinateDraw, coordinate);
+						}
 					}
+					coordinateDraw->SetW(1.0f);	/* 合計は（Weightの合計なので）1.0fになるはずなのだけど……念のため */
 				}
-
-				coordinateDraw->SetW(1.0f);	/* 合計は（Weightの合計なので）1.0fになるはずなのだけど……念のため */
+#if defined(COMPILEOPTION_PATCH_BONELIST_NOT_EXIST)
 			}
+#else
+#endif
 
 			/* デフォームの適用 */
 			if(true == flagUseDeform)	{	/* デフォーム機能を使っている */
@@ -5033,7 +5055,7 @@ bool Draw::DrawMesh(	Entity& entity,
 
 			/* ローカルスケールの適用 */
 			for(int i=0; i<countTableBindMesh; i++)	{
-				VectorMul(&coordinateScaled, CoordinateDraw[i], scaleVector4);
+				VectorMul(&coordinateScaled, CoordinateDraw[i], FPU::Vector4::One);
 				VectorAdd(&coordinateScaled, coordinateScaled, coordinateAdjust);
 				/* MEMO: .w（同次）は（Vector3に入れなおすので）1.0fにしなくても大丈夫です。 */
 				coordinateOut->Set(coordinateScaled.GetX(), coordinateScaled.GetY(), coordinateScaled.GetZ());

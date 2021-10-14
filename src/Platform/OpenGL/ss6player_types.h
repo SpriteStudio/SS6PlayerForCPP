@@ -3126,6 +3126,12 @@ public:
 /* -------------------------------------------------------------------------- */
 /*                                                                  Variables */
 /* -------------------------------------------------------------------------- */
+namespace Platform	{
+extern const char* SignatureNamePlatform;
+extern const char* SignatureVersionPlatform;
+extern const char* SignatureAuthorPlatform;
+}	/* Platform */
+
 extern const char* TextEmpty;					/* 空文字 *//* ※いちいち空文字を記載するのもメモリの無駄ではあるので……。 */
 
 extern const float PI;							/* 円周率 */

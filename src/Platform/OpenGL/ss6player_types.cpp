@@ -24,6 +24,13 @@ namespace SpriteStudio6	{
 /* -------------------------------------------------------------------------- */
 /*                                            [File-Scope internal] Variables */
 /* -------------------------------------------------------------------------- */
+/* シグネチャ関係 */
+namespace Platform	{
+const char* SignatureNamePlatform = "(SS6Player for CPP) Platform-Implementation for OpenGL";
+const char* SignatureVersionPlatform = "1.0.2";
+const char* SignatureAuthorPlatform = "Web Technology Corp.";
+}	/* Platform */
+
 /* CPU::Vector2関係 */
 const CPU::Vector2 CPU::Vector2::Zero(0.0f, 0.0f);					/* 全要素0.0f */
 const CPU::Vector2 CPU::Vector2::One(1.0f, 1.0f);;					/* 全要素1.0f */
@@ -2154,9 +2161,8 @@ void MatrixCreateTRS(FPU::Matrix4x4* result, const FPU::Vector3& translate, cons
 										0.0f,	0.0f,	0.0f,	1.0f
 									);
 
-	/* MEMO: 乗算順序逆かも */
 	FPU::Matrix4x4 matrixRotate;
-	MatrixMul(&matrixRotate, matrixRotateX, matrixRotateY);
+	MatrixMul(&matrixRotate, matrixRotateY, matrixRotateX);
 	MatrixMul(&matrixRotate, matrixRotate, matrixRotateZ);
 
 	/* スケールを設定 */
@@ -2165,7 +2171,7 @@ void MatrixCreateTRS(FPU::Matrix4x4* result, const FPU::Vector3& translate, cons
 										0.0f,			0.0f,			scaling.GetZ(),	0.0f,
 										0.0f,			0.0f,			0.0f,			1.0f
 									);
-	MatrixMul(result, matrixRotate, matrixScale);
+	MatrixMul(result, matrixScale, matrixRotate);
 
 	/* 平行移動成分を設定 */
 	/* MEMO: 平行移動はそのまま入れてしまう。 */
