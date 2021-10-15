@@ -21,7 +21,7 @@ namespace SpriteStudio6	{
 /*                                                                  Variables */
 /* -------------------------------------------------------------------------- */
 const char* SignatureNamePlayer = "SS6Player for CPP";
-const char* SignatureVersionPlayer = "1.0.5";
+const char* SignatureVersionPlayer = "1.1.5";
 const char* SignatureAuthorPlayer = "Web Technology Corp.";
 
 namespace Library	{
