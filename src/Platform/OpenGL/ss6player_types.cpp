@@ -27,7 +27,7 @@ namespace SpriteStudio6	{
 /* シグネチャ関係 */
 namespace Platform	{
 const char* SignatureNamePlatform = "(SS6Player for CPP) Platform-Implementation for OpenGL";
-const char* SignatureVersionPlatform = "1.0.2";
+const char* SignatureVersionPlatform = "1.0.3";
 const char* SignatureAuthorPlatform = "Web Technology Corp.";
 }	/* Platform */
 

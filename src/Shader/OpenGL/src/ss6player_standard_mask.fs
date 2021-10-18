@@ -69,13 +69,12 @@ uniform sampler2D TexureAlbedo0;
 /* MEMO: マクロの中でdiscardしているので注意してください。 */
 /* MEMO: ピクセルシェーダ入力のFlagsをダイレクトに使用しているので注意してください。        */
 /*       ※本フラグはここでしか使わないはずなので、外部から設定させない方が良いと思います。 */
-#define SS6PlayerPixelCheckDiscard(_alpha,_threshold)	\
-	if(0.5f < IN.Flags.x)	{				\
-		if((_threshold) >= (_alpha))	{	\
-			discard;						\
-		}									\
+ #define SS6PlayerPixelCheckDiscard(_alpha,_threshold)	\
+	if(0.5f < IN.Flags.x)	{							\
+		if((_threshold) >= (_alpha))	{				\
+			discard;									\
+		}												\
 	}
-
 
 /* -------------------------------------------------------------------------- */
 /*                                               Shader-Code (Pixel/Fragment) */

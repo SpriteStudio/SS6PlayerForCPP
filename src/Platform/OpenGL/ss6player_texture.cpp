@@ -234,10 +234,6 @@ bool Texture::BootUpTarget(KindTypePixel type, Sint16 sizePixelX, Sint16 sizePix
 
 			format = GL_DEPTH_STENCIL;
 			typePixel = GL_UNSIGNED_INT_24_8;
-//			accessGPU = nn::gfx::GpuAccess_DepthStencil;
-//			formatImage = nn::gfx::ImageFormat_D24_Unorm_S8_Uint;
-//			dimensionStorage = nn::gfx::ImageStorageDimension_2d;
-//			dimension = nn::gfx::ImageDimension_2d;
 			break;
 
 		case KindTypePixel::COLOR_SDR:
@@ -246,10 +242,6 @@ bool Texture::BootUpTarget(KindTypePixel type, Sint16 sizePixelX, Sint16 sizePix
 
 			format = GL_RGBA;
 			typePixel = GL_UNSIGNED_BYTE;
-//			accessGPU = nn::gfx::GpuAccess_ColorBuffer;
-//			formatImage = nn::gfx::ImageFormat_R8_G8_B8_A8_Unorm;
-//			dimensionStorage = nn::gfx::ImageStorageDimension_2d;
-//			dimension = nn::gfx::ImageDimension_2d;
 			break;
 
 		case KindTypePixel::COLOR_HDR:

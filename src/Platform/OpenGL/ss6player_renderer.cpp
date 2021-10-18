@@ -630,7 +630,7 @@ TypeDrawCommandList Renderer::SectionTest::MakeCommand(TypeDrawCommandList comma
 	} else {	/* ステンシルテストを行う */
 		glEnable(GL_STENCIL_TEST);
 		glStencilFunc(dataStencil->Function, (GLint)0x00, (GLuint)0xff);
-		glStencilOp(dataStencil->Operation, GL_KEEP, GL_KEEP);
+		glStencilOp(GL_KEEP, GL_KEEP, dataStencil->Operation);
 	}
 
 	/* 深度テストを設定 */
@@ -944,6 +944,7 @@ TypeDrawCommandList Renderer::SectionTarget::MakeCommand(TypeDrawCommandList com
 		buffersDraw[i] = idAttach;
 		if(0 != (statusTexture & Texture::FlagBitStatus::USAGE_TARGET_MASTER))	{	/* マスタターゲット */
 			glFramebufferRenderbuffer(GL_FRAMEBUFFER, idAttach, GL_RENDERBUFFER, 0);
+
 			errorGL = glGetError();
 		} else {
 			idTexture = texture->IndexGetSlotDiscriptor();
@@ -981,6 +982,7 @@ TypeDrawCommandList Renderer::SectionTarget::MakeCommand(TypeDrawCommandList com
 		if(true == flagUseTest)	{
 			if(0 != (statusTexture & Texture::FlagBitStatus::USAGE_TARGET_MASTER))	{	/* マスタターゲット */
 				glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, 0);
+
 				errorGL = glGetError();
 			} else {
 				idTexture = texture->IndexGetSlotDiscriptor();
