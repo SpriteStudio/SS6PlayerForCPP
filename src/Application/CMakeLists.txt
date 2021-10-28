@@ -73,3 +73,10 @@ if ((NOT DEFINED ENGINE) OR (ENGINE STREQUAL "OPENGL"))
      target_link_libraries(SS6PlayerForCpp_AppliationMain "-framework OpenGL")
    endif()
 endif()
+
+# export application required files
+if (ENGINE STREQUAL "OPENGL")
+    add_custom_command(TARGET SS6PlayerForCpp_AppliationMain POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/../Shader/OpenGL/src ${PROJECT_SOURCE_DIR}/../../DataRuntime/OpenGL/shader
+	)
+endif()
