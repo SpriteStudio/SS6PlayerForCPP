@@ -3,13 +3,16 @@
 # Copyright(C) Web Technology Corp.
 #                      All rights reserved.
 
-cmake_minimum_required (VERSION 3.14)
+cmake_minimum_required (VERSION 3.15)
 
 # Project-Name
 project ("SS6PlayerForCpp_Sample")
 
 # command options
 option(ENABLE_CCACHE "Enable ccache?" OFF)
+
+# Available starting cmake 3.15
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
 #
 # ccache
