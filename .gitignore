@@ -1,5 +1,8 @@
 ### https://raw.github.com/github/gitignore/111cf18136ea2c725f6cc9bf09b50dd1ed987578/C++.gitignore
 
+# CMake Build Directories
+build_win/
+
 # Prerequisites
 *.d
 
