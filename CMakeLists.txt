@@ -3,13 +3,22 @@
 # Copyright(C) Web Technology Corp.
 #                      All rights reserved.
 
-cmake_minimum_required (VERSION 3.14)
+cmake_minimum_required (VERSION 3.15)
 
 # Project-Name
 project ("SS6PlayerForCpp_Sample")
 
 # command options
 option(ENABLE_CCACHE "Enable ccache?" OFF)
+
+# Available starting cmake 3.15
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+
+# Streamline output directory
+set(SS6_BIN_DIRECTORY ${PROJECT_SOURCE_DIR}/bin-${CMAKE_SYSTEM_NAME}-${CMAKE_BUILD_TYPE}${CMAKE_SIZEOF_VOID_P})
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${SS6_BIN_DIRECTORY})
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${SS6_BIN_DIRECTORY})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${SS6_BIN_DIRECTORY})
 
 #
 # ccache
