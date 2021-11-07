@@ -32,7 +32,7 @@ bin-Windows-Release/Release
 ```
 - などのパスにて、`SS6PlayerForCpp_AppliationMain.exe`が作成される。
 
-#### ご注意
+## ご注意
 
 Clone後にソースコードを修正された方へ
 
