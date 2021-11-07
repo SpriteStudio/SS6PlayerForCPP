@@ -3,7 +3,7 @@
 # Copyright(C) Web Technology Corp.
 #                      All rights reserved.
 
-cmake_minimum_required (VERSION 3.14)
+cmake_minimum_required (VERSION 3.15)
 project(SS6PlayerForCpp)
 
 # platform detect
