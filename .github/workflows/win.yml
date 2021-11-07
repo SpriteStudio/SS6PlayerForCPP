@@ -1,4 +1,4 @@
-name: SS6PlayerForCpp for macOS
+name: SS6PlayerForCpp for Windows
 
 on: [push, pull_request]
 
