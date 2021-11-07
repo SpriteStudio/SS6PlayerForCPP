@@ -14,7 +14,8 @@ scripts/win_vs_custom.batを開いて、上の SS6で始まる環境変数を自
 win_vs_custom.batを実行する。
 ```
 
-- Visual Studioと [C++ CMake tools for windows](https://docs.microsoft.com/en-us/cpp/build/cmake-projects-in-visual-studio?view=msvc-160)をインストールされている場合：
+- Visual Studioと [C++ CMake tools for windows](https://docs.microsoft.com/en-us/cpp/build/cmake-projects-in-visual-studio?view=msvc-160)をインストールされている場合：  
+(Visual Studio内でデバッグが可能になる)
 ```
 a. Visual Studio内部でSS6PlayerForCPPフォルダーを開く。
 b. CMakeSettings.jsonの中の設定を選択する。（例：OpenGL_Win64_Debug）
