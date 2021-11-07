@@ -9,7 +9,7 @@ https://github.com/SpriteStudio/SS6PlayerForCpp/wiki
 ```
 scripts/win_vs.batを実行する。
 
-こちらで失敗したい場合、
+こちらで失敗・又は特定MSVCバージョンなどを使用する必要などある場合、
 scripts/win_vs_custom.batを開いて、上の SS6で始まる環境変数を自分の環境の合うように調整し、
 win_vs_custom.batを実行する。
 ```
@@ -20,7 +20,8 @@ win_vs_custom.batを実行する。
 a. Visual Studio内部でSS6PlayerForCPPフォルダーを開く。
 b. CMakeSettings.jsonの中の設定を選択する。（例：OpenGL_Win64_Debug）
 c. CMake Generationの完了を確認する。
-(c) の段階で失敗した場合、(Custom_OpenGL)で始まる設定を指定し、 CMakeSettings.jsonのcmakeCommandArgsを自分の環境にあう様に修正。
+(c) の段階で失敗・又は特定MSVCバージョンなどを使用する必要などある場合、
+    (Custom_OpenGL)で始まる設定を指定し, CMakeSettings.jsonのcmakeCommandArgsを自分の環境にあうように修正。
 d. SS6PlayerForCpp_ApplicationMain.exeのビルドを開始。
 ```
 
