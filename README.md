@@ -3,7 +3,7 @@
 ドキュメントはこちらです。  
 https://github.com/SpriteStudio/SS6PlayerForCpp/wiki
 
-#### ビルド
+## ビルド
 
 - とにかく先ずビルドしてみたい場合：
 ```
@@ -23,7 +23,7 @@ c. CMake Generationの完了を確認する。
 d. SS6PlayerForCpp_ApplicationMain.exeのビルドを開始。
 ```
 
-#### 実行
+## 実行
 
 - 上のビルド過程の完了後、
 ```
