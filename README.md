@@ -49,6 +49,7 @@ NAME_SSAE_ANIMATIONPACK
 NAME_ANIMATION
 ```
 - 再度ビルドを終えると、実行される。
+- [ssfb2ファイル作成の手順](https://github.com/SpriteStudio/Ss6ConverterVer2/wiki#%E4%BD%BF%E7%94%A8%E6%89%8B%E9%A0%86)
 
 ## ご注意
 
