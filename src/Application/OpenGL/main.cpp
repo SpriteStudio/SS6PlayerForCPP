@@ -27,6 +27,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <vector>
+#include <memory>
 
 /* -------------------------------------------------------------------------- */
 /*                          [File-Scope internal] Defines (Value-Type Macros) */
