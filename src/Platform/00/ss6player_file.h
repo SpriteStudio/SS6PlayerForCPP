@@ -1,4 +1,5 @@
 #pragma once
+#include <stdio.h>
 
 namespace SpriteStudio6 {
 namespace Platform {
