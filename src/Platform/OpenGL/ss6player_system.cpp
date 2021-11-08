@@ -12,6 +12,7 @@
 
 #include "ss6player_renderer.h"
 #include "ss6player_buffer.h"
+#include <00/ss6player_file.h>
 
 /* ========================================================================== */
 /* MEMO: 以下、SpriteStudio6名前空間直下に定義するものです。                  */
@@ -56,7 +57,7 @@ extern void BufferSystemShutDown(void);
 extern bool TextureSystemBootUp(const SettingSystem& setting);
 extern void TextureSystemShutDown(void);
 
-extern bool ShaderSystemBootUp(const SettingSystem& setting);
+extern bool ShaderSystemBootUp(const SettingSystem& setting, SpriteStudio6::Platform::FileAbstract& file);
 extern void ShaderSystemShutDown(void);
 
 /* -------------------------------------------------------------------------- */
@@ -68,7 +69,7 @@ extern void ShaderSystemShutDown(void);
 /* MEMO:
  * 
  */
-bool SystemBootUp(const SettingSystem& setting)
+bool System::BootUp(const SettingSystem& setting, Platform::FileAbstract& file)
 {
 	/* MEMO: メモリシステムの初期化の必要があるなら、行うこと。 */
 
@@ -89,7 +90,7 @@ bool SystemBootUp(const SettingSystem& setting)
 	if(false == TextureSystemBootUp(setting))	{	/* テクスチャ */
 		return(false);
 	}
-	if(false == ShaderSystemBootUp(setting))	{	/* シェーダ（＆頂点宣言） */
+	if(false == ShaderSystemBootUp(setting, file))	{	/* シェーダ（＆頂点宣言） */
 		return(false);
 	}
 
@@ -102,7 +103,7 @@ bool SystemBootUp(const SettingSystem& setting)
 /* MEMO:
  * 
  */
-void SystemShutDown(void)
+void System::ShutDown(void)
 {
 	/* MEMO: （ファイルシステム以外では）必ずレンダラを最後に終了させてください。 */
 	ShaderSystemShutDown();
@@ -119,7 +120,7 @@ void SystemShutDown(void)
 /* MEMO:
  * 
  */
-void SystemProcessMainPre(void)
+void System::ProcessMainPre(void)
 {
 	/* バッファ: 遅延解放処理 */
 	/* MEMO: 前フレームで描画処理が済んだ分を消去していることに注意。 */
@@ -132,7 +133,7 @@ void SystemProcessMainPre(void)
 /* MEMO:
  * 
  */
-void SystemProcessMainPost(void)
+void System::ProcessMainPost(void)
 {
 }
 
@@ -142,7 +143,7 @@ void SystemProcessMainPost(void)
 /* MEMO:
  * 
  */
-void SystemProcessRenderPre(void)
+void System::ProcessRenderPre(void)
 {
 }
 
@@ -152,7 +153,7 @@ void SystemProcessRenderPre(void)
 /* MEMO:
  * 
  */
-void SystemProcessRenderPost(void)
+void System::ProcessRenderPost(void)
 {
 	/* バッファの遅延管理に実行を要求 */
 	Buffer::GPUDeleterChunk::ExecuteRequest();
