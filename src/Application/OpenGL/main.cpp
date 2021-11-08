@@ -27,7 +27,6 @@
 #include <stdio.h>
 #include <time.h>
 #include <vector>
-#include <memory>
 
 /* -------------------------------------------------------------------------- */
 /*                          [File-Scope internal] Defines (Value-Type Macros) */
@@ -110,7 +109,7 @@ int main(void)
 	/* 初期化 */
 	SpriteStudio6::System system;
 	SpriteStudio6::Application application;
-	auto file = std::make_unique<SpriteStudio6::Platform::OpenGL::File>();
+	std::unique_ptr<SpriteStudio6::Platform::FileAbstract> file(new SpriteStudio6::Platform::OpenGL::File());
 	{
 		/* OpenGL関係 */
 		if(false == BootUpOpenGL())	{	/* 失敗 */
