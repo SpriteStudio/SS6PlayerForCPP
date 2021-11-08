@@ -1,5 +1,7 @@
 ## SpriteStudio 6 Player for CPP
 
+![Screenshot](/samples/screenshot.png?raw=true)
+
 ドキュメントはこちらです。  
 https://github.com/SpriteStudio/SS6PlayerForCpp/wiki
 
@@ -33,6 +35,20 @@ bin-Windows-Debug/Debug
 bin-Windows-Release/Release
 ```
 - などのパスにて、`SS6PlayerForCpp_AppliationMain.exe`が作成される。
+
+## 実行ファイルの変更
+
+- `samples/`内にssfb2ファイルを入れる。
+- `samples/Texture`内に必要な画像(pngなど)を入れる。
+- `src/Application/OpenGL/application.cpp`の関連項目を更新する：
+```
+NAME_FILE_SSFB2
+NAME_SSQE_SEQUENCEPACK
+NAME_SEQUENCE
+NAME_SSAE_ANIMATIONPACK
+NAME_ANIMATION
+```
+- 再度ビルドを終えると、実行される。
 
 ## ご注意
 

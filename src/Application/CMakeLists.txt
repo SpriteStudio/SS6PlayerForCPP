@@ -77,7 +77,10 @@ endif()
 # export application required files
 if (ENGINE STREQUAL "OPENGL")
     add_custom_command(TARGET SS6PlayerForCpp_AppliationMain POST_BUILD
-		COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/../Shader/OpenGL/src ${PROJECT_SOURCE_DIR}/../../DataRuntime/OpenGL/shader
+		COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/../Shader/OpenGL/src ${PROJECT_SOURCE_DIR}/../../DataRuntime/OpenGL/Shader
+	)
+    add_custom_command(TARGET SS6PlayerForCpp_AppliationMain POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_SOURCE_DIR}/../../samples ${PROJECT_SOURCE_DIR}/../../DataRuntime/OpenGL/
 	)
 endif()
 

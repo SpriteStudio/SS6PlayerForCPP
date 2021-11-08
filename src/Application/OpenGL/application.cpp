@@ -33,7 +33,8 @@
 
 
 /* 再生アニメーション名等 */
-#define NAME_FILE_SSFB2	u8"Doll.ssfb2"
+// NAME_FILE_SSFB2: 読み込むssfb2のファイル名（拡張子付きで記述してください）
+#define NAME_FILE_SSFB2	u8"knight.ssfb2"
 
 #if defined(_COMPILEOPTION_TEST_SEQUENCER_)
 /* MEMO: シーケンス再生の場合は、ssqeのファイル名と、ssqeの中に定義されているシーケンス名が必要になります。 */
@@ -41,8 +42,15 @@
 #define NAME_SEQUENCE	u8"Seq_01"
 #else
 /* MEMO: 単独アニメーション再生の場合は、ssaeのファイル名と、ssaeの中に定義されているアニメーション名が必要になります。 */
-#define NAME_SSAE_ANIMATIONPACK	u8"Action01_Body"
-#define NAME_ANIMATION	u8"PutOutL"
+
+// NAME_SSAE_ANIMATIONPACK: 再生するアニメーションデータが入っているアニメーションパック名
+// ※SpriteStudio6上でのssaeファイルのボディ名です。
+// 例：Knight_bomb.ssae -> Knight_bomb
+#define NAME_SSAE_ANIMATIONPACK	u8"Knight_bomb"
+
+// NAME_ANIMATIONが再生するアニメーションの名称です。
+// ※SpriteStudio6上でのssaeファイル内のアニメーションの名称です。
+#define NAME_ANIMATION	u8"Balloon"
 #endif
 
 
