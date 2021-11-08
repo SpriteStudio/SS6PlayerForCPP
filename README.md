@@ -35,6 +35,7 @@ bin-Windows-Debug/Debug
 bin-Windows-Release/Release
 ```
 - などのパスにて、`SS6PlayerForCpp_AppliationMain.exe`が作成される。
+- 実行すると、Readme上段の画面が表れる。
 
 ## 実行ファイルの変更
 
