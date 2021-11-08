@@ -12,7 +12,7 @@ https://github.com/SpriteStudio/SS6PlayerForCpp/wiki
 scripts/win_vs.batを実行する。
 
 こちらで失敗・又は特定MSVCバージョンなどを使用する必要などある場合、
-scripts/win_vs_custom.batを開いて、上の SS6で始まる環境変数を自分の環境の合うように調整し、
+scripts/win_vs_custom.batを開いて、上のSS6で始まる環境変数を自分の環境の合うように調整し、
 win_vs_custom.batを実行する。
 ```
 
