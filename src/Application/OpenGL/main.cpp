@@ -54,7 +54,7 @@ enum Constants	{
 };
 #endif
 
-#include <config.h>
+//#include <config.h>
 
 enum ErrorCode	{
 	APPLICATION_ERROR = -1,
@@ -118,7 +118,7 @@ int main(void)
 
 		/* SS6Player関係 */
 		SpriteStudio6::SettingSystem settingSystem;
-		sprintf(settingSystem.FilePathBase, NAME_RUNTIME_FILE_DIRECTORY);
+		sprintf(settingSystem.FilePathBase, SS6_RUNTIME_FILE_DIRECTORY);
 		settingSystem.RendererLimitBufferChunkDelayDelete = 1024;
 		if(false == system.BootUp(settingSystem, *file))	{	/* 終了 */
 			return(ErrorCode::APPLICATION_ERROR);
