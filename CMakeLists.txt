@@ -48,6 +48,11 @@ if (APPLE AND (${CMAKE_SYSTEM_NAME} MATCHES "Darwin"))
 endif()
 
 include(FetchContent)
+
+if (WIN32)
+# Windowsの場合、Flatbuffer Testsの実行に問題がある。
+set(FLATBUFFERS_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+endif()
 FetchContent_Declare(
         flatbuffers
         GIT_REPOSITORY https://github.com/google/flatbuffers.git
