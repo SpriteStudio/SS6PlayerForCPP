@@ -36,7 +36,7 @@ target_include_directories(SS6PlayerForCpp_AppliationMain PRIVATE
 )
 
 # Compile definitions
-# NAME_RUNTIME_FILE_DIRECTORY: OpenGL/main.cpp
+# SS6_RUNTIME_FILE_DIRECTORY: OpenGL/main.cpp
 target_compile_definitions(SS6PlayerForCpp_AppliationMain PRIVATE 
     SS6_RUNTIME_FILE_DIRECTORY="${CMAKE_CURRENT_SOURCE_DIR}/../../DataRuntime/OpenGL"
 )
