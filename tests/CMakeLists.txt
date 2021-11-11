@@ -29,6 +29,7 @@ gtest_discover_tests(ss6player_tests)
 target_include_directories(ss6player_tests PRIVATE ..)
 
 target_sources(ss6player_tests PRIVATE
-main.cpp
-Common/Sequencer/ss6player_sequencer.t.cpp
+	main.cpp
+	Common/Project/ss6player_project.t.cpp
+	Common/Sequencer/ss6player_sequencer.t.cpp
 )
