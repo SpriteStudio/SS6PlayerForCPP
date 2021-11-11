@@ -41,7 +41,7 @@ bin-Windows-Release/Release
 
 - `samples/`内にssfb2ファイルを入れる。
 - `samples/Texture`内に必要な画像(pngなど)を入れる。
-- `src/Application/OpenGL/application.cpp`の関連項目を更新する：
+- `src/Application/OpenGL/main.cpp`の関連項目を更新する：
 ```
 NAME_FILE_SSFB2
 NAME_SSQE_SEQUENCEPACK
