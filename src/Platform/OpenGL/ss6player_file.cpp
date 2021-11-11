@@ -24,7 +24,7 @@
 
 namespace SpriteStudio6	{
 namespace Platform	{
-namespace File	{
+namespace OpenGL	{
 /* -------------------------------------------------------------------------- */
 /*                          [File-Scope internal] Defines (Value-Type Macros) */
 /* -------------------------------------------------------------------------- */
@@ -72,7 +72,7 @@ static bool PathConvertFileSystem(std::string& pathOutput, const std::string& pa
  * するのですが……clangで通らないため（変数の初期化順の問題
  * ではないよう……）。
  */
-void* DataLoad(void** handleHeap, const char* path, size_t alignment)
+void* File::DataLoad(void** handleHeap, const char* path, size_t alignment)
 {
 	/* 出力をクリア */
 	*handleHeap = nullptr;	/* エラー時のためにクリアしておく */
@@ -147,7 +147,7 @@ DataLoad_ErrorEnd:;
 /* MEMO:
  * 
  */
-void DataRelease(void* handleHeap)
+void File::DataRelease(void* handleHeap)
 {
 	if(nullptr != handleHeap)	{
 		Memory::Free(handleHeap);
@@ -159,7 +159,7 @@ void DataRelease(void* handleHeap)
 /* --------------------------------------------------------- */
 /* MEMO:
  */
-void* TextLoad(void** handleHeap, const char* path, size_t alignment)
+void* File::TextLoad(void** handleHeap, const char* path, size_t alignment)
 {
 	/* 出力をクリア */
 	*handleHeap = nullptr;	/* エラー時のためにクリアしておく */
@@ -513,12 +513,12 @@ static bool PathConvertFileSystem(std::string& pathOutput, const std::string& pa
 bool FileSystemBootUp(const SettingSystem& setting)
 {
 	/* 基準パスの設定 */
-	Platform::File::PathBase = setting.FilePathBase;
+	Platform::OpenGL::PathBase = setting.FilePathBase;
 
-	if(0 == Platform::File::PathBase.size())	{	/* 空文字列 */
+	if(0 == Platform::OpenGL::PathBase.size())	{	/* 空文字列 */
 		return(false);
 	}
-	if(false == Platform::File::PathNormalize(Platform::File::PathBase, true))	{	/* 失敗 */
+	if(false == Platform::OpenGL::PathNormalize(Platform::OpenGL::PathBase, true))	{	/* 失敗 */
 		return(false);
 	}
 
@@ -537,6 +537,6 @@ bool FileSystemBootUp(const SettingSystem& setting)
 void FileSystemShutDown(void)
 {
 	/* 基準パスのクリア */
-	Platform::File::PathBase.clear();
+	Platform::OpenGL::PathBase.clear();
 }
 }	/* SpriteStudio6 */

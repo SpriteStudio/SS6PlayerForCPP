@@ -1,9 +1,58 @@
 ## SpriteStudio 6 Player for CPP
 
+![Screenshot](/samples/screenshot.png?raw=true)
+
 ドキュメントはこちらです。  
 https://github.com/SpriteStudio/SS6PlayerForCpp/wiki
 
-#### ご注意
+## ビルド
+
+- とにかく先ずビルドしてみたい場合：
+```
+scripts/win_vs.batを実行する。
+
+こちらで失敗・又は特定MSVCバージョンなどを使用する必要などある場合、
+scripts/win_vs_custom.batを開いて、上のSS6で始まる環境変数を自分の環境の合うように調整し、
+win_vs_custom.batを実行する。
+```
+
+- Visual Studioと [C++ CMake tools for windows](https://docs.microsoft.com/en-us/cpp/build/cmake-projects-in-visual-studio?view=msvc-160)をインストールされている場合：  
+(Visual Studio内でデバッグが可能になる)
+```
+a. Visual Studio内部でSS6PlayerForCPPフォルダーを開く。
+b. CMakeSettings.jsonの中の設定を選択する。（例：OpenGL_Win64_Debug）
+c. CMake Generationの完了を確認する。
+(c) の段階で失敗・又は特定MSVCバージョンなどを使用する必要などある場合、
+    (Custom_OpenGL)で始まる設定を指定し, CMakeSettings.jsonのcmakeCommandArgsを自分の環境にあうように修正。
+d. SS6PlayerForCpp_ApplicationMain.exeのビルドを開始。
+```
+
+## 実行
+
+- 上のビルド過程の完了後、
+```
+bin-Windows-Debug/Debug
+bin-Windows-Release/Release
+```
+- などのパスにて、`SS6PlayerForCpp_AppliationMain.exe`が作成される。
+- 実行すると、Readme上段の画面が表れる。
+
+## 実行ファイルの変更
+
+- `samples/`内にssfb2ファイルを入れる。
+- `samples/Texture`内に必要な画像(pngなど)を入れる。
+- `src/Application/OpenGL/application.cpp`の関連項目を更新する：
+```
+NAME_FILE_SSFB2
+NAME_SSQE_SEQUENCEPACK
+NAME_SEQUENCE
+NAME_SSAE_ANIMATIONPACK
+NAME_ANIMATION
+```
+- 再度ビルドを終えると、実行される。
+- [ssfb2ファイル作成の手順](https://github.com/SpriteStudio/Ss6ConverterVer2/wiki#%E4%BD%BF%E7%94%A8%E6%89%8B%E9%A0%86)
+
+## ご注意
 
 Clone後にソースコードを修正された方へ
 

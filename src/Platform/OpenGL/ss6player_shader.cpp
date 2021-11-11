@@ -13,6 +13,7 @@
 #include "ss6player_memory.h"
 #include "ss6player_file.h"
 #include "ss6player_system.h"
+#include <00/ss6player_file.h>
 
 namespace SpriteStudio6	{
 /* -------------------------------------------------------------------------- */
@@ -570,7 +571,7 @@ TypeDrawCommandList Shader::MakeCommandTexture(	TypeDrawCommandList commandList,
 	で宣言できるので、何かあった時にシェーダ内にあった方が
 	良いだろうと思ったため、ここに設置してあります）。
 */
-bool ShaderSystemBootUp(const SettingSystem& setting)
+bool ShaderSystemBootUp(const SettingSystem& setting, SpriteStudio6::Platform::FileAbstract& file)
 {
 	/* 標準頂点宣言を作成 */
 	if(false == DeclarationVertex::BuiltInStandard.BootUpStandard())	{	/* 失敗 */
@@ -582,23 +583,23 @@ bool ShaderSystemBootUp(const SettingSystem& setting)
 	void* handleDataFragment = nullptr;
 	void* handleHeapVertex = nullptr;
 	void* handleHeapFragment = nullptr;
-	handleDataVertex = SpriteStudio6::Platform::File::TextLoad(&handleHeapVertex, u8"shader/ss6player_standard.vs", SpriteStudio6::AlignmentMemory::FILE_BUFFER);
-	handleDataFragment = SpriteStudio6::Platform::File::TextLoad(&handleHeapFragment, u8"shader/ss6player_standard.fs", SpriteStudio6::AlignmentMemory::FILE_BUFFER);
+	handleDataVertex = file.TextLoad(&handleHeapVertex, u8"shader/ss6player_standard.vs", SpriteStudio6::AlignmentMemory::FILE_BUFFER);
+	handleDataFragment = file.TextLoad(&handleHeapFragment, u8"shader/ss6player_standard.fs", SpriteStudio6::AlignmentMemory::FILE_BUFFER);
 	if((nullptr == handleDataVertex) || (nullptr == handleDataFragment))	{
 		return(false);
 	}
 	Shader::BuiltInStandard.BootUp(handleDataVertex, handleDataFragment, SpriteStudio6::DeclarationVertex::BuiltInStandard, 0, true);
-	SpriteStudio6::Platform::File::DataRelease(handleHeapFragment);
+	file.DataRelease(handleHeapFragment);
 //	SpriteStudio6::Platform::File::DataRelease(handleHeapVertex);
 
 //	handleDataVertex = SpriteStudio6::Platform::File::TextLoad(&handleHeapVertex, u8"shader/ss6player_standard.vs", SpriteStudio6::AlignmentMemory::FILE_BUFFER);
-	handleDataFragment = SpriteStudio6::Platform::File::TextLoad(&handleHeapFragment, u8"shader/ss6player_standard_mask.fs", SpriteStudio6::AlignmentMemory::FILE_BUFFER);
+	handleDataFragment = file.TextLoad(&handleHeapFragment, u8"shader/ss6player_standard_mask.fs", SpriteStudio6::AlignmentMemory::FILE_BUFFER);
 	if((nullptr == handleDataVertex) || (nullptr == handleDataFragment))	{
 		return(false);
 	}
 	Shader::BuiltInStandardMask.BootUp(handleDataVertex, handleDataFragment, SpriteStudio6::DeclarationVertex::BuiltInStandard, 1, false);
-	SpriteStudio6::Platform::File::DataRelease(handleHeapFragment);
-	SpriteStudio6::Platform::File::DataRelease(handleHeapVertex);
+	file.DataRelease(handleHeapFragment);
+	file.DataRelease(handleHeapVertex);
 
 	return(true);
 }

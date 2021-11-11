@@ -1,6 +1,6 @@
-name: SS6PlayerForCpp for macOS
+name: SS6PlayerForCpp for Windows
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build:

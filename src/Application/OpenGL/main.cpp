@@ -107,6 +107,9 @@ int main(void)
 #endif	/* defined(SS6PLAYER_COMPILEOPTION_PLATFORM_WINDOWS) */
 
 	/* 初期化 */
+	SpriteStudio6::System system;
+	SpriteStudio6::Application application;
+	std::unique_ptr<SpriteStudio6::Platform::FileAbstract> file(new SpriteStudio6::Platform::OpenGL::File());
 	{
 		/* OpenGL関係 */
 		if(false == BootUpOpenGL())	{	/* 失敗 */
@@ -117,13 +120,36 @@ int main(void)
 		SpriteStudio6::SettingSystem settingSystem;
 		sprintf(settingSystem.FilePathBase, NAME_RUNTIME_FILE_DIRECTORY);
 		settingSystem.RendererLimitBufferChunkDelayDelete = 1024;
-		if(false == SpriteStudio6::SystemBootUp(settingSystem))	{	/* 終了 */
+		if(false == system.BootUp(settingSystem, *file))	{	/* 終了 */
 			return(ErrorCode::APPLICATION_ERROR);
 		}
 
 		/* アプリケーション */
-		if(false == ApplicationBootUp())	{	/* 失敗 */
-			return(ErrorCode::APPLICATION_ERROR);
+		{
+			SpriteStudio6::Application::Options options;
+			{
+				options.NAME_FILE_SSFB2 = u8"knight.ssfb2";
+				#if defined(_COMPILEOPTION_TEST_SEQUENCER_)
+				{
+					options.NAME_SSQE_SEQUENCEPACK = u8"Knight_bomb";
+					options.NAME_SEQUENCE = u8"Bomb_Attack";
+				}
+				#else
+				{
+					options.NAME_SSAE_ANIMATIONPACK = u8"Knight_bomb";
+					options.NAME_ANIMATION = u8"Bomb_Attack";
+				}
+				#endif
+			}
+
+			// overrides
+			{
+				application.SetPlatformFile(std::move(file));
+			}
+
+			if (false == application.BootUp(options)) {	/* 失敗 */
+				return(ErrorCode::APPLICATION_ERROR);
+			}
 		}
 	}
 
@@ -136,7 +162,7 @@ int main(void)
 		bool flagProcessMain = true;
 		for(clockNow=0; flagProcessMain==true ; clockNow=clock())	{
 			/* SS6Playerの定常ループ先頭処理 */
-			SpriteStudio6::SystemProcessMainPre();
+			system.ProcessMainPre();
 
 			/* 前フレームからの経過時間を取得 */
 			clockElapsed = clockNow - clockPrevious;
@@ -144,17 +170,17 @@ int main(void)
 
 			/* アプリケーションの定常更新 */
 			timeElapseed = (float)clockElapsed / CLOCKS_PER_SEC;
-			flagProcessMain = ApplicationUpdate(timeElapseed);
+			flagProcessMain = application.Update(timeElapseed);
 
 			/* SS6Playerの定常ループ末尾処理 */
-			SpriteStudio6::SystemProcessMainPost();
+			system.ProcessMainPost();
 
 			/* 描画 */
 			/* MEMO: ApplicationUpdateが終わっている場合において、描画は別スレッドで行うことも可能です。 */
 			/* MEMO: ApplicationDrawの引数は、OpenGL実装では使用しませんので、何の値を渡しても構いません。 */
 			/*       ただし、nullptr以外の値を渡してください（内部処理でnullptrはエラーと判定するため）。  */
 			uintptr_t commandList = UINTPTR_MAX;
-			ApplicationDraw((SpriteStudio6::TypeDrawCommandList)commandList);
+			application.Draw((SpriteStudio6::TypeDrawCommandList)commandList);
 
 			/* フレームを進める */
 			glfwSwapBuffers(HandleWindowGLFW);
@@ -173,17 +199,17 @@ int main(void)
 			/*         スレッドとの同期がとられていないことを示します）場合には */
 			/*         それを前提とした特段処理を行う必要がある点に注意してくだ */
 			/*         さい。                                                   */
-			SpriteStudio6::SystemProcessRenderPost();
+			system.ProcessRenderPost();
 		}
 	}
 
 	/* 終了 */
 	{
 		/* アプリケーション */
-		ApplicationShutDown();
+		application.ShutDown();
 
 		/* SS6Player関係 */
-		SpriteStudio6::SystemShutDown();
+		system.ShutDown();
 
 		/* OpenGL関係 */
 		ShutDownOpenGL();

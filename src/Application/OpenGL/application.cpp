@@ -17,34 +17,6 @@
 
 #include <vector>
 
-/* コンパイルオプション: シーケンサ再生 */
-/* MEMO: 定義すると、「シーケンサ（シーケンスデータ）」の再生サンプルになります。                */
-/*       定義しないと、「エンティティ（1アニメーションオブジェクト）」の再生サンプルになります。 */
-// #define _COMPILEOPTION_TEST_SEQUENCER_
-
-/* コンパイルオプション: 複製描画の追加 */
-/* MEMO: 定義すると、再生しているオブジェクトを画面いっぱいに複製描画します。 */
-// #define _COMPILEOPTION_TEST_REPLICATE_
-
-/* コンパイルオプション: テクスチャを外部定義 */
-/* MEMO: 少し変わった運用時のための例です。                                                      */
-/*       ※例えば、SS6のデータと他のモデルや描画物がテクスチャを共用しているような場合……など。 */
-// #define _COMPILEOPTION_TEXTURE_EXTERNALENTITY_
-
-
-/* 再生アニメーション名等 */
-#define NAME_FILE_SSFB2	u8"Doll.ssfb2"
-
-#if defined(_COMPILEOPTION_TEST_SEQUENCER_)
-/* MEMO: シーケンス再生の場合は、ssqeのファイル名と、ssqeの中に定義されているシーケンス名が必要になります。 */
-#define NAME_SSQE_SEQUENCEPACK	u8"Sequence"
-#define NAME_SEQUENCE	u8"Seq_01"
-#else
-/* MEMO: 単独アニメーション再生の場合は、ssaeのファイル名と、ssaeの中に定義されているアニメーション名が必要になります。 */
-#define NAME_SSAE_ANIMATIONPACK	u8"Action01_Body"
-#define NAME_ANIMATION	u8"PutOutL"
-#endif
-
 
 /* -------------------------------------------------------------------------- */
 /*                          [File-Scope internal] Defines (Value-Type Macros) */
@@ -63,7 +35,9 @@ protected:
 public:
 
 	/* ----------------------------------------------- Enums & Constants */
-private:
+public:
+	SpriteStudio6::Application* _application = nullptr;
+
 protected:
 public:
 	/* 再生対象データ */
@@ -164,7 +138,7 @@ public:
 		/* MEMO: SSFB2自体はファイルアライメントにあわせる必要はないのですが、 */
 		/*       一応他のリソースファイル群と同じアライメントにしておきます。  */
 		/* MEMO: 横着して、SS6Playerの実装関数を呼んでいますが、アプリケーション側のファイルシステムを使用して読み込むことを推奨します。 */
-		Data = SpriteStudio6::Platform::File::DataLoad(&HandleHeap, nameFile, SpriteStudio6::AlignmentMemory::FILE_BUFFER);
+		Data = _application->GetPlatformFile().DataLoad(&HandleHeap, nameFile, SpriteStudio6::AlignmentMemory::FILE_BUFFER);
 		if(nullptr == Data)	{	/* エラー */
 			CleanUp();
 			return(false);
@@ -197,7 +171,7 @@ public:
 				/* SSFB2内で使用しているテクスチャファイルのロード */
 				/* MEMO: 横着して、SS6Playerの実装関数を呼んでいますが、アプリケーション側のファイルシステムを使用して読み込むことを推奨します。 */
 				nameTexture = u8"texture/" + std::string(Project.NameGetTexture(i)) + u8".png";
-				handleDataTexture = SpriteStudio6::Platform::File::DataLoad(&HandleHeapTexture[i], nameTexture.c_str(), SpriteStudio6::AlignmentMemory::FILE_BUFFER);
+				handleDataTexture = _application->GetPlatformFile().DataLoad(&HandleHeapTexture[i], nameTexture.c_str(), SpriteStudio6::AlignmentMemory::FILE_BUFFER);
 				if(nullptr == handleDataTexture)	{	/* 失敗 */
 					return(false);
 				}
@@ -567,26 +541,35 @@ static void CallBackFunctionSignal(	SpriteStudio6::Entity& entity,
 /* MEMO:
  * 
  */
-bool ApplicationBootUp(void)
+bool SpriteStudio6::Application::BootUp(const Options& options)
 {
+	// check overrides
+	{
+		if (!_file) {
+			return false;
+		}
+	}
+
+	HandlerSS6._application = this;
+
 	/* データのロード・エンティティの起動・対応テクスチャのロード */
 #if defined(_COMPILEOPTION_TEST_SEQUENCER_)
 	HandlerSS6.DataLoadSSFB2(NAME_FILE_SSFB2);
 #else
-	HandlerSS6.DataLoadSSFB2(NAME_FILE_SSFB2);
+	HandlerSS6.DataLoadSSFB2(options.NAME_FILE_SSFB2.c_str());
 #endif	/* defined(_COMPILEOPTION_TEST_SEQUENCER_) */
 
 #if defined(_COMPILEOPTION_TEST_SEQUENCER_)
 	/* アニメーションのモデルをシーケンスに割当 */
-	HandlerSS6.PackSetSequence(NAME_SSQE_SEQUENCEPACK);	/* シーケンサにシーケンスパックを割当 */
+	HandlerSS6.PackSetSequence(options.NAME_SSQE_SEQUENCEPACK.c_str());	/* シーケンサにシーケンスパックを割当 */
 
 	/* シーケンスの再生開始 */
 	/* MEMO: シーケンスパック中の指定番号のシーケンスを再生します。 */
-	int indexSequence = HandlerSS6.Sequencer.IndexGetSequence(NAME_SEQUENCE);
+	int indexSequence = HandlerSS6.Sequencer.IndexGetSequence(options.NAME_SEQUENCE.c_str());
 	HandlerSS6.Sequencer.Play(indexSequence, 1.0f);
 #else
 	/* アニメーションのモデルをエンティティに割当 */
-	HandlerSS6.PackSetAnimation(NAME_SSAE_ANIMATIONPACK);
+	HandlerSS6.PackSetAnimation(options.NAME_SSAE_ANIMATIONPACK.c_str());
 #if 0	/* MEMO: 再生終了などのコールバックを受け取る場合は、下記の方法で関数を定義します（無論、直接EntityやSequencerに設定しても構いません）。 */
 	/* コールバック関数群設定 */
 	HandlerSS6.Entity.CallBackUserData.Set(CallBackFunctionUserData, nullptr);
@@ -595,7 +578,7 @@ bool ApplicationBootUp(void)
 
 	/* アニメーションの再生開始 */
 	/* MEMO: アニメーションパック中の指定番号のアニメーションを再生します。 */
-	int indexAnimation = HandlerSS6.Entity.IndexGetAnimation(NAME_ANIMATION);
+	int indexAnimation = HandlerSS6.Entity.IndexGetAnimation(options.NAME_ANIMATION.c_str());
 
 	HandlerSS6.Entity.AnimationPlay(-1, indexAnimation);
 #endif	/* defined(_COMPILEOPTION_TEST_SEQUENCER_) */
@@ -617,7 +600,7 @@ bool ApplicationBootUp(void)
 /* MEMO:
  * 
  */
-void ApplicationShutDown(void)
+void SpriteStudio6::Application::ShutDown(void)
 {
 	/* ハンドラの削除 */
 	HandlerSS6.ShutDown();
@@ -637,7 +620,7 @@ void ApplicationShutDown(void)
 /* MEMO:
  * 
  */
-bool ApplicationUpdate(SpriteStudio6::Float32 timeElapsed)
+bool SpriteStudio6::Application::Update(SpriteStudio6::Float32 timeElapsed)
 {
 	/* デバグ操作 */
 	TimeElapsed = timeElapsed;
@@ -667,7 +650,7 @@ bool ApplicationUpdate(SpriteStudio6::Float32 timeElapsed)
 /* MEMO:
  * 
  */
-bool ApplicationDraw(SpriteStudio6::TypeDrawCommandList commandList)
+bool SpriteStudio6::Application::Draw(SpriteStudio6::TypeDrawCommandList commandList)
 {
 	/* 静的レンダラをリフレッシュ */
 	SpriteStudio6::Renderer& renderer = SpriteStudio6::Renderer::Instance;
