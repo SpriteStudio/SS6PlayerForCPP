@@ -54,8 +54,6 @@ enum Constants	{
 };
 #endif
 
-//#include <config.h>
-
 enum ErrorCode	{
 	APPLICATION_ERROR = -1,
 	APPLICATION_SUCCESS = 0,
