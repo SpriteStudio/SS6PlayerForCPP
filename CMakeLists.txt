@@ -10,6 +10,7 @@ project ("SS6PlayerForCpp_Sample")
 
 # command options
 option(ENABLE_CCACHE "Enable ccache?" OFF)
+option(WITH_CI_BUILD "Use CI Build Settings" OFF)
 
 # Available starting cmake 3.15
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
@@ -78,4 +79,4 @@ set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT "src/Application")
 # Composition
 add_subdirectory("src")                 # Static-Library: libSS6PlayerForCpp
 add_subdirectory("src/Application")     # Sample: Application-Main
-
+add_subdirectory("tests")
