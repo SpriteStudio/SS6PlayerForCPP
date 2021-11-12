@@ -10,9 +10,13 @@ project ("SS6PlayerForCpp_Sample")
 
 # command options
 option(ENABLE_CCACHE "Enable ccache?" OFF)
+option(WITH_CI_BUILD "Use CI Build Settings" OFF)
 
 # Available starting cmake 3.15
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
+
+# Enable ctest
+enable_testing()
 
 # Streamline output directory
 set(SS6_BIN_DIRECTORY ${PROJECT_SOURCE_DIR}/bin-${CMAKE_SYSTEM_NAME}-${CMAKE_BUILD_TYPE}${CMAKE_SIZEOF_VOID_P})
@@ -44,6 +48,11 @@ if (APPLE AND (${CMAKE_SYSTEM_NAME} MATCHES "Darwin"))
 endif()
 
 include(FetchContent)
+
+if (WIN32)
+# Windowsの場合、Flatbuffer Testsの実行に問題がある。
+set(FLATBUFFERS_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+endif()
 FetchContent_Declare(
         flatbuffers
         GIT_REPOSITORY https://github.com/google/flatbuffers.git
@@ -78,4 +87,4 @@ set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT "src/Application")
 # Composition
 add_subdirectory("src")                 # Static-Library: libSS6PlayerForCpp
 add_subdirectory("src/Application")     # Sample: Application-Main
-
+add_subdirectory("tests")

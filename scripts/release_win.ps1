@@ -20,8 +20,9 @@ if (Test-Path -Path $BUILDDIR) {
 mkdir $BUILDDIR
 
 pushd $BUILDDIR
-cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE ..
+cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE -DWITH_CI_BUILD=ON ..
 cmake --build . --config $BUILD_TYPE --parallel
+ctest
 
 popd 
 popd

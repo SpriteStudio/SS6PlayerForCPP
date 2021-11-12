@@ -22,8 +22,10 @@ endif()
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+add_executable(SS6PlayerForCpp_AppliationMain)
+
 # header-file directories
-set(headerDirectories_SS6player
+target_include_directories(SS6PlayerForCpp_AppliationMain PRIVATE 
     "${CMAKE_CURRENT_SOURCE_DIR}/../Common"
     "${CMAKE_CURRENT_SOURCE_DIR}/../Common/Entity"
     "${CMAKE_CURRENT_SOURCE_DIR}/../Common/Library"
@@ -32,36 +34,35 @@ set(headerDirectories_SS6player
     "${CMAKE_CURRENT_SOURCE_DIR}/../Common/Sequencer"
     "${CMAKE_CURRENT_SOURCE_DIR}/../OSS"
 )
-include_directories(${headerDirectories_SS6player})
 
-# config.h
-set(NAME_RUNTIME_FILE_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/../../DataRuntime/OpenGL")
-configure_file(./OpenGL/config.h.in ./OpenGL/config.h)
+# Compile definitions
+# SS6_RUNTIME_FILE_DIRECTORY: OpenGL/main.cpp
+target_compile_definitions(SS6PlayerForCpp_AppliationMain PRIVATE 
+    SS6_RUNTIME_FILE_DIRECTORY="${CMAKE_CURRENT_SOURCE_DIR}/../../DataRuntime/OpenGL"
+)
 message(STATUS ${CMAKE_CURRENT_BINARY_DIR}/)
-include_directories(${CMAKE_CURRENT_BINARY_DIR}/OpenGL)
+
+target_include_directories(SS6PlayerForCpp_AppliationMain PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/OpenGL)
 
 # platform
 if ((NOT DEFINED ENGINE) OR (ENGINE STREQUAL "OPENGL"))
   ## OpenGL
-  set(SS6PlayerForCppApp_srcs ${SS6PlayerForCppApp_srcs}
+  target_sources(SS6PlayerForCpp_AppliationMain PRIVATE
           OpenGL/main.cpp
           OpenGL/application.cpp
           OpenGL/application.h
-          )
+    )
 
-  include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../Platform/OpenGL) # [SS6Player for CPP] Platform
-  include_directories(${glew_SOURCE_DIR}/include)                     # GLEW
-  include_directories(${glfw_SOURCE_DIR}/include)                     # GLFW
-  include_directories(${stb_SOURCE_DIR})                              # STB
+  target_include_directories(SS6PlayerForCpp_AppliationMain PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../Platform/OpenGL) # [SS6Player for CPP] Platform
+  target_include_directories(SS6PlayerForCpp_AppliationMain PRIVATE ${glew_SOURCE_DIR}/include)                     # GLEW
+  target_include_directories(SS6PlayerForCpp_AppliationMain PRIVATE ${glfw_SOURCE_DIR}/include)                     # GLFW
+  target_include_directories(SS6PlayerForCpp_AppliationMain PRIVATE ${stb_SOURCE_DIR})                              # STB
 endif()
 
 # link
-add_executable(SS6PlayerForCpp_AppliationMain ${SS6PlayerForCppApp_srcs})
 target_link_libraries(SS6PlayerForCpp_AppliationMain SS6PlayerForCpp)
 if ((NOT DEFINED ENGINE) OR (ENGINE STREQUAL "OPENGL"))
   # dependency libraries
-  add_dependencies(SS6PlayerForCpp_AppliationMain glfw)
-  add_dependencies(SS6PlayerForCpp_AppliationMain libglew_static)
   target_link_libraries(SS6PlayerForCpp_AppliationMain glfw)
   target_link_libraries(SS6PlayerForCpp_AppliationMain libglew_static)
   if(WIN32)

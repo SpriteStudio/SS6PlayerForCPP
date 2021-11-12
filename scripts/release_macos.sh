@@ -21,8 +21,9 @@ BUILDDIR=buildmac
 /bin/mkdir -p "${BUILDDIR}"
 
 pushd "${BUILDDIR}" > /dev/null
-cmake -DCMAKE_BUILD_TYPE=${BUILDTYPE} ..
+cmake -DCMAKE_BUILD_TYPE=${BUILDTYPE} -DWITH_CI_BUILD=ON ..
 cmake --build . -j8
+ctest
 popd > /dev/null # BUILDDIR
 
 popd > /dev/null # BASEDIR

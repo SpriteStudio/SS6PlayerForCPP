@@ -18,6 +18,8 @@ endif()
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+add_library(SS6PlayerForCpp STATIC)
+
 set(flatBuffers_Library_srcs
         ${flatbuffers_SOURCE_DIR}/include/flatbuffers/base.h
         ${flatbuffers_SOURCE_DIR}/include/flatbuffers/code_generators.h
@@ -34,14 +36,15 @@ set(flatBuffers_Library_srcs
         ${flatbuffers_SOURCE_DIR}/include/flatbuffers/stl_emulation.h
         ${flatbuffers_SOURCE_DIR}/include/flatbuffers/util.h
         )
-include_directories("${flatbuffers_SOURCE_DIR}/include")
-set(SS6PlayerForCpp_srcs ${SS6PlayerForCpp_srcs}
-        ${flatBuffers_Library_srcs}
-        )
+
+target_include_directories(SS6PlayerForCpp PUBLIC "${flatbuffers_SOURCE_DIR}/include")
+target_sources(SS6PlayerForCpp PRIVATE
+	${flatBuffers_Library_srcs}
+)
 
 # Common
 ## Entity
-set(SS6PlayerForCpp_srcs ${SS6PlayerForCpp_srcs}
+target_sources(SS6PlayerForCpp PRIVATE
         Common/Entity/ss6player_entity.cpp
         Common/Entity/ss6player_entity.h
         Common/Entity/ss6player_entity_effect.cpp
@@ -67,10 +70,10 @@ set(SS6PlayerForCpp_srcs ${SS6PlayerForCpp_srcs}
         Common/Entity/ss6player_entity_replicate.cpp
         Common/Entity/ss6player_entity_replicate.h
         )
-include_directories(Common/Entity)
+target_include_directories(SS6PlayerForCpp PUBLIC Common/Entity)
 
 ## Library
-set(SS6PlayerForCpp_srcs ${SS6PlayerForCpp_srcs}
+target_sources(SS6PlayerForCpp PRIVATE
         Common/Library/ss6player_control.cpp
         Common/Library/ss6player_control.h
         Common/Library/ss6player_control_effect.cpp
@@ -88,39 +91,39 @@ set(SS6PlayerForCpp_srcs ${SS6PlayerForCpp_srcs}
         Common/Library/ss6player_utility_random_xorshift32.cpp
         Common/Library/ss6player_utility_random_xorshift32.h
         )
-include_directories(Common/Library)
+target_include_directories(SS6PlayerForCpp PUBLIC Common/Library)
 
 ## PrimitiveBatcher
-set(SS6PlayerForCpp_srcs ${SS6PlayerForCpp_srcs}
+target_sources(SS6PlayerForCpp PRIVATE
         Common/PrimitiveBatcher/ss6player_primitive_batcher.cpp
         Common/PrimitiveBatcher/ss6player_primitive_batcher.h
         )
-include_directories(Common/PrimitiveBatcher)
+target_include_directories(SS6PlayerForCpp PUBLIC Common/PrimitiveBatcher)
 
 ## Project
-set(SS6PlayerForCpp_srcs ${SS6PlayerForCpp_srcs}
+target_sources(SS6PlayerForCpp PRIVATE
         Common/Project/ss6player_project.cpp
         Common/Project/ss6player_project.h
         )
-include_directories(Common/Project)
+target_include_directories(SS6PlayerForCpp PUBLIC Common/Project)
 
 ## Sequencer
-set(SS6PlayerForCpp_srcs ${SS6PlayerForCpp_srcs}
+target_sources(SS6PlayerForCpp PRIVATE
         Common/Sequencer/ss6player_sequencer.cpp
         Common/Sequencer/ss6player_sequencer.h
         )
-include_directories(Common/Sequencer)
+target_include_directories(SS6PlayerForCpp PUBLIC Common/Sequencer)
 
-set(SS6PlayerForCpp_srcs ${SS6PlayerForCpp_srcs}
+target_sources(SS6PlayerForCpp PRIVATE
         Common/ssfb2_generated.h
         )
-include_directories(Common)
+target_include_directories(SS6PlayerForCpp PUBLIC Common)
 
 # Platform
 include_directories(Platform)
 if ((NOT DEFINED ENGINE) OR (ENGINE STREQUAL "OPENGL"))
   ## OpenGL
-  set(SS6PlayerForCpp_srcs ${SS6PlayerForCpp_srcs}
+  target_sources(SS6PlayerForCpp PRIVATE
           Platform/OpenGL/ss6player_buffer.cpp
           Platform/OpenGL/ss6player_buffer.h
           Platform/OpenGL/ss6player_file.cpp
@@ -141,16 +144,15 @@ if ((NOT DEFINED ENGINE) OR (ENGINE STREQUAL "OPENGL"))
           Platform/OpenGL/ss6player_types.h
           )
 
-  include_directories(Platform/OpenGL)                      # [SS6Player for CPP] Platform
-  include_directories(${glew_SOURCE_DIR}/include)           # GLEW
-  include_directories(${glfw_SOURCE_DIR}/include)           # GLFW
-  include_directories(${stb_SOURCE_DIR})                    # STB
+  target_include_directories(SS6PlayerForCpp PUBLIC Platform/OpenGL)                      # [SS6Player for CPP] Platform
+  target_include_directories(SS6PlayerForCpp PUBLIC ${glew_SOURCE_DIR}/include)           # GLEW
+  target_include_directories(SS6PlayerForCpp PUBLIC ${glfw_SOURCE_DIR}/include)           # GLFW
+  target_include_directories(SS6PlayerForCpp PUBLIC ${stb_SOURCE_DIR})                    # STB
 else()
 endif()
 
-add_library(SS6PlayerForCpp STATIC ${SS6PlayerForCpp_srcs})
-add_dependencies(SS6PlayerForCpp flatbuffers)
+target_link_libraries(SS6PlayerForCpp PUBLIC flatbuffers)
 set_target_properties(SS6PlayerForCpp PROPERTIES OUTPUT_NAME "SS6PlayerForCpp")
 if ((NOT DEFINED ENGINE) OR (ENGINE STREQUAL "OPENGL"))
-    add_dependencies(SS6PlayerForCpp libglew_static)
+    target_link_libraries(SS6PlayerForCpp PUBLIC libglew_static)
 endif()
