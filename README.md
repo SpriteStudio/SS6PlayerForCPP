@@ -1,3 +1,10 @@
+> [!IMPORTANT]
+> 後継の **SpriteStudio Player for wgpu** へ移行してください。C / C++ からは C API で使えます（[C / C++ ではじめる](https://cri-middleware.github.io/SSPlayerForWgpu/ja/start/cpp/)）。
+>
+> <https://github.com/cri-middleware/SSPlayerForWgpu>
+>
+> 移行の手順は [SS6Player for CPP からの移行](https://cri-middleware.github.io/SSPlayerForWgpu/ja/migration/from-ss6-cpp/) を参照してください。アセットの `.sspj` からの再変換と、ホストコードの書き換えが必要です。
+
 ## SpriteStudio 6 Player for CPP
 
 ドキュメントはこちらです。  
